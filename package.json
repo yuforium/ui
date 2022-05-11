@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "gen-ui-client": "npx openapi-generator-cli generate -i http://localhost:3000/api-json -g typescript-angular -o projects/common/src/lib/api"
   },
   "private": true,
   "dependencies": {
@@ -18,6 +19,7 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@tailwindcss/forms": "^0.5.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -26,6 +28,7 @@
     "@angular-devkit/build-angular": "~13.3.3",
     "@angular/cli": "~13.3.3",
     "@angular/compiler-cli": "~13.3.0",
+    "@openapitools/openapi-generator-cli": "^2.5.1",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "autoprefixer": "^10.4.5",

@@ -200,7 +200,8 @@
               "browserTarget": "test-app:build:production"
             },
             "development": {
-              "browserTarget": "test-app:build:development"
+              "browserTarget": "test-app:build:development",
+              "disableHostCheck": true
             }
           },
           "defaultConfiguration": "development"
