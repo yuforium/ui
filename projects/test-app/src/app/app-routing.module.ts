@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent } from './modules/auth/auth.component';
-import { HomeComponent } from './modules/home/home.component';
-import { UserComponent } from './modules/user/user.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
   },
   {
-    path: 'user/:username',
-    component: UserComponent
+    path: '',
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'auth/login',
-    component: AuthComponent
+    path: 'user',
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+  },
+  {
+    path: 'forum',
+    loadChildren: () => import('./modules/forum/forum.module').then(m => m.ForumModule),
   }
 ];
 

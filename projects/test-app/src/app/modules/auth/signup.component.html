@@ -1,0 +1,27 @@
+Create your Yuforium account:
+
+<div>
+
+    <div class="py-2">
+        <yf-text-input label="Username" placeholder="Username" #username></yf-text-input>
+        your username will be <i>username@yuforia.com</i>
+    </div>
+
+    <div class="py-2">
+        <yf-text-input inputType="password" label="Password" placeholder="Password" #password></yf-text-input>
+    </div>
+
+    <div class="py-2">
+        <yf-text-input label="Verify Password" placeholder="Password (again)" #passwordAgain></yf-text-input>
+    </div>
+
+    <div class="py-2">
+        <yf-text-input label="Email" placeholder="example@example.org" #email></yf-text-input>
+    </div>
+
+    <button
+        (click)="signup(username.value, password.value, passwordAgain.value, email.value)"
+        type="button" class="my-2 py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+        Sign Up
+    </button>
+</div>

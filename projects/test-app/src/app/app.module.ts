@@ -2,13 +2,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { ApiModule, Configuration, ConfigurationParameters } from 'projects/common/src/lib/api';
-import { CommonModule } from 'projects/common/src/public-api';
+import { ApiModule, Configuration, ConfigurationParameters } from 'projects/ui-common/src/lib/api';
+import { UiCommonModule } from 'projects/ui-common/src/public-api';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { CommonService } from 'common';
+import { AppService } from './app.service';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './modules/home/home.component';
 
 const apiConfigFactory = (): Configuration => {
   const params: ConfigurationParameters = {
@@ -23,14 +25,13 @@ const apiConfigFactory = (): Configuration => {
     AppComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    CommonModule,
+    BrowserModule,
     ApiModule.forRoot(apiConfigFactory),
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

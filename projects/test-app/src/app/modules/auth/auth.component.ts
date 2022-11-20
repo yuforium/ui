@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from 'projects/common/src/public-api';
-import { AuthService, Configuration } from 'projects/common/src/lib/api';
+import { AuthService, Configuration } from 'projects/ui-common/src/lib/api';
 import { switchMap } from 'rxjs';
-import { UserService } from 'projects/common/src/lib/api/api/user.service';
+import { UserService } from 'projects/ui-common/src/lib/api/api/user.service';
+import { AppService } from '../../app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -12,14 +13,15 @@ import { UserService } from 'projects/common/src/lib/api/api/user.service';
 export class AuthComponent implements OnInit {
 
   constructor(
-    protected commonService: CommonService,
+    protected appService: AppService,
     protected authService: AuthService,
     protected config: Configuration,
-    protected userService: UserService
+    protected userService: UserService,
+    protected router: Router
   ) { }
 
   ngOnInit(): void {
-    if (this.commonService.authenticated) {
+    if (this.appService.authenticated) {
       this.authService.profile()
         .subscribe(response => {
           console.log('your profile is', response);
@@ -28,7 +30,7 @@ export class AuthComponent implements OnInit {
   }
 
   public get authenticated(): boolean {
-    return this.commonService.authenticated;
+    return this.appService.authenticated;
   }
 
   login(username: string, password: string): void {
@@ -38,14 +40,14 @@ export class AuthComponent implements OnInit {
           const expiresAt = new Date();
           expiresAt.setSeconds(expiresAt.getSeconds() + response.expires_in);
 
-          this.commonService.setApiToken({accessToken: response.access_token, expiresAt});
+          this.appService.setApiToken({accessToken: response.access_token, expiresAt});
           this.config.credentials['bearer'] = response.access_token;
 
           return this.authService.profile();
         })
       )
       .subscribe(response => {
-        console.log('your profile is', response);
+        this.router.navigate(['/user', response.preferredUsername]);
       });
   }
 }

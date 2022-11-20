@@ -4,6 +4,10 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "UiCommon": [
+        "dist/ui-common/ui-common",
+        "dist/ui-common"
+      ],
       "common": [
         "dist/common/common",
         "dist/common"

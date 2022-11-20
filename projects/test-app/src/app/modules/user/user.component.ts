@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'projects/common/src/lib/api/api/user.service';
-import { PersonDto } from 'projects/common/src/lib/api/model/personDto';
-import { switchMap } from 'rxjs';
+import { ActivityPubService, NoteCreateDto } from 'projects/ui-common/src/lib/api';
+import { UserService } from 'projects/ui-common/src/lib/api/api/user.service';
+import { PersonDto } from 'projects/ui-common/src/lib/api/model/personDto';
+import { Observable, pluck, shareReplay, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -12,28 +13,68 @@ import { switchMap } from 'rxjs';
 export class UserComponent implements OnInit {
 
   public username: string = '';
-  public person: PersonDto|null = null;
+  public person: PersonDto | null = null;
   public activity: any[] = [];
+  public posts$: Observable<any>|undefined
+  public skip: number = 0;
+  public limit: number = 10;
 
   constructor(
     private route: ActivatedRoute,
-    protected userService: UserService
+    protected userService: UserService,
+    protected activityPubService: ActivityPubService
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: any) => {
       this.username = params.username;
+      this.loadContent();
+    });
+  }
 
-      this.userService.get(this.username)
-        .pipe(
-          switchMap(response => {
-            this.person = response;
-            return this.userService.getInbox(this.username);
-          })
-        )
-        .subscribe((response: any[]) => {
-          console.log('inbox is', response);
-      });
+  loadContent() {
+    this.posts$ = this.userService.get(this.username)
+    .pipe(
+      switchMap(response => {
+        this.person = response;
+        return this.userService.getContent(this.username, {type: 'Note', skip: this.skip, limit: this.limit, sort: '-published'});
+      }),
+      pluck('items'),
+      shareReplay()
+    );
+  }
+
+  isArray(value: any): boolean {
+    return Array.isArray(value);
+  }
+
+  postMessage(message: string, addressee?: string) {
+    /**
+     * if to is not set, use followers link as "to:' field
+     *
+     * "to" field should be considered public unless otherwise specified
+     * https://www.w3.org/ns/activitystreams#Public
+     *
+     */
+    let to: string|string[];
+
+    if (addressee) {
+      to = [
+        addressee, 'https://www.w3.org/ns/activitystreams#Public'
+      ]
+    }
+    else {
+      to = 'https://www.w3.org/ns/activitystreams#Public';
+    }
+
+    const data: NoteCreateDto = {
+      type: 'Note',
+      content: message,
+      to: to
+    }
+
+    this.activityPubService.postUserOutbox(this.username, data).subscribe(response => {
+      this.loadContent();
     });
   }
 }

@@ -1,3 +1,43 @@
-<h1 class="text-xl font-abz-sans">{{ person?.id }}</h1>
-<h2>followers are {{ person?.following }} </h2>
-<h3>username is {{ person?.preferredUsername }}</h3>
+<div class="mb-5">
+  <h1 class="text-2xl font-abz-sans">{{ person?.name }}</h1>
+  <h2>{{ person?.id }}</h2>
+</div>
+
+<div class="grid grid-cols-3 gap-8">
+  <div>
+    <div class="mt-1">
+      <div class="mb-3">
+        <label for="addressee" class="block text-sm font-medium text-gray-700">Addressee</label>
+        <input name="addressee" #addressee class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2" placeholder="#Public">
+      </div>
+      <div class="mb-3">
+        <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
+        <textarea name="content" #postbox rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
+      </div>
+      <button (click)="postMessage(postbox.value, addressee.value)" type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Post
+      </button>
+    </div>
+  </div>
+
+  <div class="col-span-2">
+    <div *ngFor="let post of posts$ | async" class="mb-3">
+      <h4 class="text-xs">{{ post.published | date }} - {{ isArray(post.to) ? post.to.join("-") : post.to }}</h4>
+      <p>{{ post.content }}</p>
+    </div>
+  </div>
+
+  <!-- <div>
+    <label for="about" class="block text-sm font-medium text-gray-700"> About </label>
+    <div class="mt-1">
+      <textarea #postbox rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
+    </div>
+    <p class="mt-2 text-sm text-gray-500">Brief description for your profile. URLs are hyperlinked.</p>
+    <button (click)="postMessage(postbox.value)" type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      Post
+    </button>
+  </div>
+
+  <div>
+  </div> -->
+</div>
