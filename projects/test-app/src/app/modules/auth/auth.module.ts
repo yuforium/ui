@@ -5,6 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { SignupComponent } from './signup.component';
 import { UiCommonModule } from 'projects/ui-common/src/public-api';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { UiCommonModule } from 'projects/ui-common/src/public-api';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    UiCommonModule
+    UiCommonModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthModule { }

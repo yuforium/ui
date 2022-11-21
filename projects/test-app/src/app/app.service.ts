@@ -1,5 +1,7 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService, Configuration, PersonDto } from 'projects/ui-common/src/lib/api';
+import { Observable, switchMap } from 'rxjs';
 
 export interface StoredApiToken {
   accessToken: string;
@@ -46,5 +48,20 @@ export class AppService {
 
   setApiToken(storedApiToken: StoredApiToken) {
     localStorage.setItem('apiToken', JSON.stringify(storedApiToken));
+  }
+
+  login(username: string, password: string): Observable<any> {
+    return this.authService.login({username, password})
+      .pipe(
+        switchMap(response => {
+          const expiresAt = new Date();
+          expiresAt.setSeconds(expiresAt.getSeconds() + response.expires_in);
+
+          this.setApiToken({accessToken: response.access_token, expiresAt});
+          this.config.credentials['bearer'] = response.access_token;
+
+          return this.authService.profile();
+        })
+      );
   }
 }

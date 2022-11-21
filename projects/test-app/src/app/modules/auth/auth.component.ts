@@ -34,18 +34,7 @@ export class AuthComponent implements OnInit {
   }
 
   login(username: string, password: string): void {
-    this.authService.login({username, password})
-      .pipe(
-        switchMap(response => {
-          const expiresAt = new Date();
-          expiresAt.setSeconds(expiresAt.getSeconds() + response.expires_in);
-
-          this.appService.setApiToken({accessToken: response.access_token, expiresAt});
-          this.config.credentials['bearer'] = response.access_token;
-
-          return this.authService.profile();
-        })
-      )
+    this.appService.login(username, password)
       .subscribe(response => {
         this.router.navigate(['/user', response.preferredUsername]);
       });
