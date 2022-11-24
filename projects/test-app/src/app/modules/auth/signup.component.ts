@@ -106,13 +106,12 @@ export class SignupComponent implements OnInit {
   onSignupError(response: HttpErrorResponse) {
     switch(response.status) {
       case 409:
-        alert('Username already exists');
-        break;
-      case 400:
-        alert('there are errors');
+        alert('Sorry, that username already exists');
         break;
       default:
-        alert('looks like it worked');
+        alert('Sorry, we had an error creating your account');
     }
+
+    this.button.nativeElement.disabled = false;
   }
 }

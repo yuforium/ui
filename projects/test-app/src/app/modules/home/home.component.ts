@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadContent() {
-    this.posts$ = this.userService.getContent('yuforia').pipe(pluck('items'));
+    this.posts$ = this.userService.getContent('yuforia', {type: 'Note', sort: '-published', limit: 5}).pipe(pluck('items'));
   }
 
   isArray(value: any): boolean {
