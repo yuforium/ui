@@ -15,6 +15,5 @@ export class AppComponent {
   }
 
   public showUsername() {
-    console.log(this.username);
   }
 }

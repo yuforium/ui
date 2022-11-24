@@ -2,7 +2,7 @@
 
 <!-- <p class="p-5">Social Interconnects</p> -->
 <nav class="bg-sky-100 text-sky-900 p-2 px-6 flex items-center">
-  <a routerLink="/" class="flex-none font-abz-sans text-5xl mx-4">yuforium</a>
+  <a class="title" routerLink="/">yuforium</a>
   <div class="flex-1"></div>
 
   <a *ngIf="appService.profile; let profile" [routerLink]="['/user', profile.preferredUsername]" class="hover:bg-gray-700 hover:text-white flex-inline px-3 py-2 rounded-md text-sm font-medium">@{{ profile.preferredUsername }}</a>

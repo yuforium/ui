@@ -6,6 +6,35 @@
 @tailwind components;
 @tailwind utilities;
 
+a {
+  @apply text-sky-900;
+}
+a:hover {
+  @apply underline underline-offset-4
+}
+
+/* Nav Specific */
+nav a.title {
+  @apply font-abz-sans flex-none text-4xl mx-4;
+}
+nav a.title:hover {
+  @apply no-underline;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-abz-sans;
+}
+
+h1 {
+  @apply text-4xl;
+}
+
+h2 {
+  @apply text-2xl my-4;
+}
+
+/* Input Specific */
 label {
   @apply text-gray-500 text-sm block mb-1 ml-2;
 }

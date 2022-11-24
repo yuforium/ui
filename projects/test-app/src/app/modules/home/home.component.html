@@ -1,5 +1,9 @@
-Rethink social.
+<p class="my-2">Rethink social networks. <a routerLink="/login">Login</a> or <a routerLink="/signup">Sign Up</a>.</p>
 
-<!--
-<a [routerLink]="['/login']">Login</a> or <a [routerLink]="['/signup']">Signup</a>
--->
+<div class="mx-4">
+  <h2>Latest Updates</h2>
+  <div *ngFor="let post of posts$ | async" class="mb-3">
+    <h4 class="text-xs">{{ post.published | date }}</h4>
+    <p>{{ post.content }}</p>
+  </div>
+</div>
