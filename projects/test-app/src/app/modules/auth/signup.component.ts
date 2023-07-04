@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, UserCreateDto, UserService } from 'projects/ui-common/src/lib/api';
 import { map, Observable, subscribeOn } from 'rxjs';
@@ -12,7 +12,7 @@ import { AppService } from '../../app.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  public signupForm!: FormGroup;
+  public signupForm!: UntypedFormGroup;
   @ViewChild('button', {static: true}) button!: ElementRef<HTMLButtonElement>;
 
   constructor(
@@ -22,14 +22,14 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup({
-      username: new FormControl('', {
+    this.signupForm = new UntypedFormGroup({
+      username: new UntypedFormControl('', {
         validators: [Validators.required, Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]+$/)],
         asyncValidators: [this.userExistsValidator.bind(this)]
       }),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      passwordAgain: new FormControl('', [this.passwordMatchValidator()]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
+      passwordAgain: new UntypedFormControl('', [this.passwordMatchValidator()]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
   }
 

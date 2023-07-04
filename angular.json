@@ -232,5 +232,7 @@
       }
     }
   },
-  "defaultProject": "common"
+  "cli": {
+    "analytics": false
+  }
 }
