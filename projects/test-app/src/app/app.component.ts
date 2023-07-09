@@ -1,17 +1,24 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { AppService } from './app.service';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  public readonly title = environment.appName;
+  public user: any;
 
-  title = 'test-app';
   username: string = 'test';
 
   constructor(readonly appService: AppService) {
+    this.appService.getUser().subscribe((user: any) => {
+      this.user = user;
+  }
+
+  ngOnInit() {
   }
 
   public showUsername() {

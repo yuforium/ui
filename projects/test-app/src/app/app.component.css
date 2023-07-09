@@ -1,0 +1,20 @@
+nav {
+    @apply text-sky-900 p-3 px-6 flex items-center;
+    border-bottom: 1px solid #000;
+
+    /* fixed positioning */
+    @apply fixed top-0 left-0 right-0 h-16;
+}
+
+/* Nav Specific */
+nav a.title {
+    @apply font-abz-sans flex-none text-3xl mx-4 lowercase;
+}
+nav a.title:hover {
+    @apply no-underline;
+}
+
+/* content div */
+div.content {
+    @apply mt-16;
+}
