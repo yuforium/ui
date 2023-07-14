@@ -145,7 +145,7 @@ export class UserService {
             }
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/user`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/users`,
             userCreateDto,
             {
                 context: localVarHttpContext,
@@ -201,7 +201,7 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user/exists/${encodeURIComponent(String(username))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users/exists/${encodeURIComponent(String(username))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -252,7 +252,7 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -308,7 +308,7 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user/${encodeURIComponent(String(username))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -370,7 +370,7 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user/${encodeURIComponent(String(username))}/content`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/content`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -433,7 +433,7 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user/${encodeURIComponent(String(username))}/inbox`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/inbox`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -495,8 +495,67 @@ export class UserService {
             }
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/user/${encodeURIComponent(String(username))}/inbox`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/inbox`,
             null,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param postId 
+     * @param username 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public userContentControllerGetPost(postId: string, username: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public userContentControllerGetPost(postId: string, username: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public userContentControllerGetPost(postId: string, username: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public userContentControllerGetPost(postId: string, username: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (postId === null || postId === undefined) {
+            throw new Error('Required parameter postId was null or undefined when calling userContentControllerGetPost.');
+        }
+        if (username === null || username === undefined) {
+            throw new Error('Required parameter username was null or undefined when calling userContentControllerGetPost.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/content/posts/${encodeURIComponent(String(postId))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -547,7 +606,7 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user/whoami`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users/whoami`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

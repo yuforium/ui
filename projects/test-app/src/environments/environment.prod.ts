@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiBasePath: 'https://yuforia.com'
+  apiBasePath: 'https://yuforia.com',
+  appName: 'Yuforia'
 };

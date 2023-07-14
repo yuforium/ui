@@ -14,8 +14,9 @@ export class AppComponent implements OnInit {
   username: string = 'test';
 
   constructor(readonly appService: AppService) {
-    this.appService.getUser().subscribe((user: any) => {
-      this.user = user;
+    // this.appService.getUser().subscribe((user: any) => {
+    //   this.user = user;
+    // });
   }
 
   ngOnInit() {

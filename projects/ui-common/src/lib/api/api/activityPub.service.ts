@@ -132,7 +132,7 @@ export class ActivityPubService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user/${encodeURIComponent(String(username))}/outbox`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/outbox`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -191,7 +191,7 @@ export class ActivityPubService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user/${encodeURIComponent(String(username))}/outbox/page/${encodeURIComponent(String(page))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/outbox/page/${encodeURIComponent(String(page))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -266,7 +266,7 @@ export class ActivityPubService {
             }
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/user/${encodeURIComponent(String(username))}/outbox`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/outbox`,
             noteCreateDto,
             {
                 context: localVarHttpContext,

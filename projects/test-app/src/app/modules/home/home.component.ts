@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'projects/ui-common/src/lib/api';
 import { Observable, pluck } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,7 @@ import { Observable, pluck } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   public posts$: Observable<any> | undefined;
+  env = environment;
 
   constructor(protected userService: UserService) { }
 
@@ -17,7 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadContent() {
-    this.posts$ = this.userService.getContent('yuforia', {type: 'Note', sort: '-published', limit: 5}).pipe(pluck('items'));
+    this.posts$ = this.userService.getContent('chris', {type: 'Note', sort: '-published', limit: 5}).pipe(pluck('items'));
   }
 
   isArray(value: any): boolean {

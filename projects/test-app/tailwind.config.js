@@ -1,7 +1,10 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './projects/test-app/src/**/*.{html,ts}',
-    './projects/common/src/**/*.{html,ts}'
+    './src/**/*.{html,ts}',
+    './projects/**/*.{html,ts}',
+    // './projects/test-app/src/**/*.{html,ts}',
+    // './projects/common/src/**/*.{html,ts}'
   ],
   theme: {
     extend: {
@@ -14,6 +17,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('daisyui')
   ],
   corePlugins: {
   }

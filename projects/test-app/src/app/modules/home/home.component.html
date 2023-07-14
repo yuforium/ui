@@ -1,7 +1,12 @@
 <!-- <p class="my-2">Rethink social networks. <a routerLink="/login">Login</a> or <a routerLink="/signup">Sign Up</a>.</p> -->
 
-<div class="mx-4">
-  <h2>Latest Updates</h2>
+<div class="alert mb-4 hidden md:flex">
+  <div><b>{{ env.appName }}</b> is an open community platform based on ActivityPub.  <a [routerLink]="['about']">Learn more</a>.</div>
+</div>
+
+<div>
+  <h3>Latest Updates</h3>
+  <p>These are the latest updates.</p>
   <div *ngFor="let post of posts$ | async" class="mb-3">
     <h4 class="text-xs">{{ post.published | date }}</h4>
     <p>{{ post.content }}</p>
