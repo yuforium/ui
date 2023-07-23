@@ -13,7 +13,10 @@ div.navbar .title {
     @apply text-3xl mx-8;
 } */
 
-.navbar, 
+.navbar {
+    @apply px-2;
+}
+
 .content {
-    @apply px-16;
+    @apply px-6;
 }

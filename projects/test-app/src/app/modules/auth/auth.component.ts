@@ -24,7 +24,7 @@ export class AuthComponent implements OnInit {
     if (this.appService.authenticated) {
       this.authService.profile()
         .subscribe(response => {
-          console.log('your profile is', response);
+          // console.log('your profile is', response);
         });
     }
   }

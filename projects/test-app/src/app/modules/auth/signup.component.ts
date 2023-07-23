@@ -14,6 +14,8 @@ import { AppService } from '../../app.service';
 export class SignupComponent implements OnInit {
   public signupForm!: UntypedFormGroup;
   @ViewChild('button', {static: true}) button!: ElementRef<HTMLButtonElement>;
+  public displayError = false;
+  public loading = false;
 
   constructor(
     protected appService: AppService,
@@ -30,7 +32,7 @@ export class SignupComponent implements OnInit {
       password: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
       passwordAgain: new UntypedFormControl('', [this.passwordMatchValidator()]),
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
-    });
+    }, {updateOn: 'change'});
   }
 
   passwordMatchValidator(): ValidatorFn {
@@ -41,59 +43,37 @@ export class SignupComponent implements OnInit {
     };
   }
 
-  userExistsValidatorOld(): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      const username = control.value;
-      return this.userService.exists(username)
-        .pipe(
-          map(exists => exists ? { userExists: { value: username } } : null)
-        );
-    };
-  }
-
   userExistsValidator(control: AbstractControl): Observable<ValidationErrors | null> {
-    const username = control.value;
-    return this.userService.exists(username)
+    const value = control.value;
+    return this.userService.exists(value)
       .pipe(
-        map(exists => exists ? { userExists: { value: username } } : null)
-      );
-  }
+        map(exists => {
+          const err = exists ? { userExists: { value } } : null;
 
-  getInvalidatedState(controlName: string) {
-    return this.signupForm.get(controlName)?.invalid && (this.signupForm.get(controlName)?.touched && this.signupForm.get(controlName)?.dirty);
-  }
+          control.setErrors(err);
+          control.markAsTouched();
 
-  getInvalidatedErrors(controlName: string) {
-    const errs = Object.entries(this.signupForm.get(controlName)?.errors || {}).map(([key, value]) => {
-      switch(key) {
-        case 'required':
-          return 'Required';
-        case 'minlength':
-          return `Too short`;
-        case 'email':
-          return 'Invalid email';
-        case 'passwordMatch':
-          return "Doesn't match";
-        case 'pattern':
-          return 'Letters and numbers only';
-        case 'userExists':
-          return `${value.value} already exists`;
-        default:
-          return key;
-      }
-    });
-
-    return errs;
+          return err;
+        })
+    );
   }
 
   signup(username: string, password: string, passwordAgain: string, email: string) {
+    if (this.signupForm.invalid) {
+      this.displayError = true;
+      return;
+    }
+
     this.button.nativeElement.disabled = true;
     const userDto: UserCreateDto = {username, password, email};
 
-    this.userService.create({username, password, email}).subscribe(
-      response => this.onSignup(response),
-      response => this.onSignupError(response)
-    );
+    this.loading = true;
+
+    this.userService.create({username, password, email}).subscribe({
+      next: response => this.onSignup(response),
+      error: response => this.onSignupError(response),
+      complete: () => this.loading = false
+    });
   }
 
   onSignup(response: HttpResponse<any>) {

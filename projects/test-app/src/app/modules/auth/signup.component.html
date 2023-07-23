@@ -1,48 +1,72 @@
-Create your Yuforium account:
-<form [formGroup]="signupForm">
-    <div class="relative mb-8">
-        <label for="signup-username">Username</label>
-        <input #username id="signup-username" type="text" formControlName="username" [ngClass]="{invalid: getInvalidatedState('username')}">
-        <p class="error">
-            {{ getInvalidatedErrors('username')[0] }}
-            <span *ngIf="(getInvalidatedErrors('username') | slice : 1).length; let additionalErrorCount">,
-                <span>+{{ additionalErrorCount }} more</span>
-            </span>
-        </p>
+<div class="max-w-md mx-auto relative">
+  <span *ngIf="loading" class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+  <div class="mb-2">
+    <h3>Create an account</h3>
+  </div>
+
+  <div class="alert alert-error" *ngIf="displayError">
+    <span>please enter all fields correctly</span>
+  </div>
+
+  <ng-template #errorTemplate let-control="control" let-initial="initial">
+    <span *ngIf="initial && control.untouched" class="label-text-alt text-sky-500">{{ initial }}</span>
+    <ng-container *ngIf="control.touched">
+      <span class="label-text-alt text-red-500" *ngIf="control.invalid" [ngSwitch]="(control.errors | keyvalue)[0].key">
+        <ng-container *ngSwitchCase="'required'">Required</ng-container>
+        <ng-container *ngSwitchCase="'minlength'">Too short</ng-container>
+        <ng-container *ngSwitchCase="'maxlength'">Too long</ng-container>
+        <ng-container *ngSwitchCase="'pattern'">Letters and numbers only</ng-container>
+        <ng-container *ngSwitchCase="'email'">Invalid email</ng-container>
+        <ng-container *ngSwitchCase="'passwordMatch'">Passwords do not match</ng-container>
+        <ng-container *ngSwitchCase="'userExists'">User already exists</ng-container>
+        <ng-container *ngSwitchDefault>Unknown error</ng-container>
+      </span>
+      <span class="label-text-alt text-sky-500" *ngIf="control.valid">Looks ok!</span>
+    </ng-container>
+    <!-- <span *ngIf="control.errors && !control.untouched">{{ control.errors | json }}</span> -->
+  </ng-template>
+
+  <form class="mb-4 container" [formGroup]="signupForm" [ngClass]="{'opacity-50': loading}">
+    <div class="mb-2">
+      <label class="label">
+        <span class="label-text">Username</span>
+        <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['username'], initial: 'Required'};" ></ng-container>
+      </label>
+      <input #username id="signup-username" type="text" autocomplete="off" formControlName="username">
     </div>
 
-    <div class="relative mb-8">
-        <label for="signup-password">Password</label>
-        <input #password id="signup-password" type="password" formControlName="password" [ngClass]="{invalid: getInvalidatedState('password')}">
-        <p class="error">
-            {{ getInvalidatedErrors('password')[0] }}
-            <span *ngIf="(getInvalidatedErrors('password') | slice : 1).length; let additionalErrorCount">,
-                <span>+{{ additionalErrorCount }} more</span>
-            </span>
-        </p>
+    <div class="mb-2">
+      <label class="label">
+        <span class="label-text">Password</span>
+        <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['password'], initial: 'Required'};" ></ng-container>
+      </label>
+      <input #password id="signup-password" type="password" formControlName="password">
     </div>
 
-    <div class="relative mb-8">
-        <label for="signup-password-again">Password (Again)</label>
-        <input #passwordAgain id="signup-password-again" type="password" formControlName="passwordAgain" [ngClass]="{invalid: getInvalidatedState('passwordAgain')}">
-        <p class="error">
-            {{ getInvalidatedErrors('passwordAgain')[0] }}
-            <span *ngIf="(getInvalidatedErrors('passwordAgain') | slice : 1).length; let additionalErrorCount">, +{{ additionalErrorCount }} more</span>
-        </p>
+    <div class="mb-2">
+      <label class="label">
+        <span class="label-text">Password (again)</span>
+        <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['passwordAgain'], initial: 'Required'};" ></ng-container>
+      </label>
+      <input #passwordAgain id="signup-password-again" type="password" formControlName="passwordAgain">
     </div>
 
-    <div class="relative mb-8">
-        <label for="signup-email">Email</label>
-        <input #email id="signup-email" type="text" formControlName="email" [ngClass]="{invalid: getInvalidatedState('passwordAgain')}">
-        <p class="error">
-            {{ getInvalidatedErrors('email')[0] }}
-            <span *ngIf="(getInvalidatedErrors('email') | slice : 1).length; let additionalErrorCount">, +{{ additionalErrorCount }} more</span>
-        </p>
+    <div class="mb-2">
+      <label class="label">
+        <span class="label-text">Email</span>
+        <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['email'], initial: 'Required'};" ></ng-container>
+      </label>
+      <input #email id="signup-email" type="text" formControlName="email">
     </div>
-</form>
 
-<button #button
-    (click)="signup(username.value, password.value, passwordAgain.value, email.value)"
-    type="button" class="my-2 py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+    <button #button
+      tabindex="0"
+      (click)="signup(username.value, password.value, passwordAgain.value, email.value)"
+      type="button"
+      class="btn btn-primary mt-4"
+      >
     Sign Up
-</button>
+    </button>
+  </form>
+
+</div>

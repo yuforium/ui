@@ -140,7 +140,7 @@ export class AuthService {
                 responseType_ = 'blob';
             }
         }
-
+        
         return this.httpClient.post<any>(`${this.configuration.basePath}/auth/login`,
             loginDto,
             {

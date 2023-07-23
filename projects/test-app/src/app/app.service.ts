@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService, Configuration, PersonDto } from 'projects/ui-common/src/lib/api';
-import { Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 export interface StoredApiToken {
   accessToken: string;
@@ -12,6 +12,7 @@ export interface StoredApiToken {
   providedIn: 'root'
 })
 export class AppService {
+  public $user = new BehaviorSubject<PersonDto | null>(null);
   protected storedApiToken: StoredApiToken | null = null;
   protected _profile: PersonDto | null = null;
 
