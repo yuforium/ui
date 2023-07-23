@@ -32,7 +32,7 @@ export class ForumComponent implements OnInit {
     // this.posts$ = this.forumService.getForum('asdf')
     //   .pipe(
     //     switchMap((response: any) => {
-    //       console.log('this is a test')
+    //       ('this is a test')
     //       console.log(response);
     //       return Promise.resolve(response);
     //     })
