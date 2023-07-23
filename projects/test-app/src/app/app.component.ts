@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { AppService } from './app.service';
 import { environment } from '../environments/environment';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,8 @@ export class AppComponent implements OnInit {
 
   username: string = 'test';
 
-  constructor(readonly appService: AppService) {
-    // this.appService.getUser().subscribe((user: any) => {
-    //   this.user = user;
-    // });
+  constructor(readonly appService: AppService, readonly titleService: Title) {
+    this.titleService.setTitle(this.title);
   }
 
   ngOnInit() {

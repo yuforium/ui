@@ -5,10 +5,13 @@
 </div>
 
 <div>
-  <h3>Latest Updates</h3>
-  <p>These are the latest updates.</p>
-  <div *ngFor="let post of posts$ | async" class="mb-3">
+  <h3 class="mb-2">Updates</h3>
+
+  <div *ngFor="let post of posts$ | async" class="p-2 mb-2">
     <h4 class="text-xs">{{ post.published | date }}</h4>
     <p>{{ post.content }}</p>
+    <p>{{ post | json }}</p>
   </div>
+
+
 </div>

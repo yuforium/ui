@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { AppService } from './app.service';
+import { AboutComponent } from './about/about.component';
 
 const apiConfigFactory = (): Configuration => {
   const params: ConfigurationParameters = {
@@ -19,7 +20,8 @@ const apiConfigFactory = (): Configuration => {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AboutComponent
   ],
   imports: [
     AppRoutingModule,

@@ -71,9 +71,8 @@ export class SignupComponent implements OnInit {
 
     this.userService.create({username, password, email}).subscribe({
       next: response => this.onSignup(response),
-      error: response => this.onSignupError(response),
-      complete: () => this.loading = false
-    });
+      error: response => this.onSignupError(response)
+    }).add(() => this.loading = false);
   }
 
   onSignup(response: HttpResponse<any>) {

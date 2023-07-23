@@ -1,9 +1,11 @@
-<div class="max-w-md mx-auto">
+<div class="max-w-md mx-auto relative">
+  <span *ngIf="loading" class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+
   <div class="mb-2">
     <h3>Login to your account</h3>
   </div>
 
-  <div class="mb-4">
+  <div class="mb-4" [ngClass]="{'opacity-50': loading}">
     <label class="label">
       <span class="label-text">Username</span>
     </label>

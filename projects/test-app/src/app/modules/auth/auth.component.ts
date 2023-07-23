@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+  public loading = false;
 
   constructor(
     protected appService: AppService,
@@ -34,9 +35,13 @@ export class AuthComponent implements OnInit {
   }
 
   login(username: string, password: string): void {
+    this.loading = true;
+
     this.appService.login(username, password)
-      .subscribe(response => {
-        this.router.navigate(['/user', response.preferredUsername]);
-      });
+      .subscribe({
+        next: (response: any) => this.router.navigate(['/user', response.preferredUsername]),
+        error: err => console.error(err)
+      })
+      .add(() => this.loading = false);
   }
 }
