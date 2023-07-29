@@ -1,7 +1,8 @@
-<div class="max-w-md mx-auto relative">
+<div class="max-w-md mx-auto static">
   <span *ngIf="loading" class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
   <div class="mb-2">
-    <h3>Create an account</h3>
+    <h3>Sign up</h3>
+    <p>Sign up with {{ appName }} by creating a free account.</p>
   </div>
 
   <div class="alert alert-error" *ngIf="displayError">
@@ -32,7 +33,7 @@
         <span class="label-text">Username</span>
         <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['username'], initial: 'Required'};" ></ng-container>
       </label>
-      <input #username id="signup-username" type="text" autocomplete="off" formControlName="username">
+      <input #username id="signup-username" type="text" autocomplete="off" formControlName="username" placeholder="enter username">
     </div>
 
     <div class="mb-2">
@@ -40,7 +41,7 @@
         <span class="label-text">Password</span>
         <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['password'], initial: 'Required'};" ></ng-container>
       </label>
-      <input #password id="signup-password" type="password" formControlName="password">
+      <input #password id="signup-password" type="password" formControlName="password" placeholder="enter password">
     </div>
 
     <div class="mb-2">
@@ -48,7 +49,7 @@
         <span class="label-text">Password (again)</span>
         <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['passwordAgain'], initial: 'Required'};" ></ng-container>
       </label>
-      <input #passwordAgain id="signup-password-again" type="password" formControlName="passwordAgain">
+      <input #passwordAgain id="signup-password-again" type="password" formControlName="passwordAgain" placeholder="verify password">
     </div>
 
     <div class="mb-2">
@@ -56,7 +57,7 @@
         <span class="label-text">Email</span>
         <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['email'], initial: 'Required'};" ></ng-container>
       </label>
-      <input #email id="signup-email" type="text" formControlName="email">
+      <input #email id="signup-email" type="text" formControlName="email" placeholder="user@example.com">
     </div>
 
     <button #button

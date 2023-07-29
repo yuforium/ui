@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ActivityPubService, NoteCreateDto } from 'projects/ui-common/src/lib/api';
 import { UserService } from 'projects/ui-common/src/lib/api/api/user.service';
 import { PersonDto } from 'projects/ui-common/src/lib/api/model/personDto';
-import { Observable, pluck, shareReplay, switchMap } from 'rxjs';
+import { Observable, map, pluck, shareReplay, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +11,6 @@ import { Observable, pluck, shareReplay, switchMap } from 'rxjs';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-
   public username: string = '';
   public person: PersonDto | null = null;
   public activity: any[] = [];
@@ -34,14 +33,14 @@ export class UserComponent implements OnInit {
 
   loadContent() {
     this.posts$ = this.userService.get(this.username)
-    .pipe(
-      switchMap(response => {
-        this.person = response;
-        return this.userService.getContent(this.username, {type: 'Note', skip: this.skip, limit: this.limit, sort: '-published'});
-      }),
-      pluck('items'),
-      shareReplay()
-    );
+      .pipe(
+        switchMap(response => {
+          this.person = response;
+          return this.userService.getContent(this.username, {type: 'Note', skip: this.skip, limit: this.limit, sort: '-published'});
+        }),
+        map(response => response.items),
+        shareReplay()
+      );
   }
 
   isArray(value: any): boolean {

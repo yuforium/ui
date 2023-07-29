@@ -1,13 +1,13 @@
 <!-- <p class="my-2">Rethink social networks. <a routerLink="/login">Login</a> or <a routerLink="/signup">Sign Up</a>.</p> -->
 
 <div class="alert mb-4 hidden md:flex">
-  <div><b>{{ env.appName }}</b> is an open community platform based on ActivityPub.  <a *ngIf="false" [routerLink]="['about']">Learn more</a></div>
+  <div><b>{{ env.appName }}</b> is an open source community platform based on ActivityPub.  <a *ngIf="false" [routerLink]="['about']">Learn more</a></div>
 </div>
 
 <div>
   <h3 class="mb-2">News &amp; Updates</h3>
 
-  <div *ngFor="let post of posts$ | async" class="p-2 mb-2">
+  <div *ngFor="let post of posts$ | async" class="mb-6">
     <h4 class="text-xs">{{ post.published | date }}</h4>
     <p>{{ post.content }}</p>
   </div>

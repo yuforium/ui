@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService, UserCreateDto, UserService } from 'projects/ui-common/src/lib/api';
 import { map, Observable, subscribeOn } from 'rxjs';
 import { AppService } from '../../app.service';
+import { environment } from 'projects/test-app/src/environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -16,6 +17,7 @@ export class SignupComponent implements OnInit {
   @ViewChild('button', {static: true}) button!: ElementRef<HTMLButtonElement>;
   public displayError = false;
   public loading = false;
+  public appName = environment.appName;
 
   constructor(
     protected appService: AppService,

@@ -1,6 +1,7 @@
 <div class="mb-5">
-  <h1 class="text-2xl font-abz-sans">{{ person?.name }}</h1>
-  <h2>{{ person?.id }}</h2>
+  <!-- <div>{{ person | json }}</div> -->
+  <h1 class="text-2xl">{{ person?.name || person?.preferredUsername }}</h1>
+  {{ person?.id }}
 </div>
 
 <div class="grid grid-cols-3 gap-8">
