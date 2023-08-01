@@ -15,7 +15,12 @@ model/forumCreateDto.ts
 model/loginDto.ts
 model/models.ts
 model/noteCreateDto.ts
+model/noteCreateDtoContent.ts
+model/objectDto.ts
+model/objectDtoTo.ts
+model/orderedCollectionPageDto.ts
 model/personDto.ts
 model/userContentQueryOptionsDto.ts
 model/userCreateDto.ts
+param.ts
 variables.ts

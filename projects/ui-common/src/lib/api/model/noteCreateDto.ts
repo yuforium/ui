@@ -9,12 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
 
 export interface NoteCreateDto { 
-    content: string | Array<string> | null;
+    content: NoteCreateDtoContent;
+    to: NoteCreateDtoContent;
     type: NoteCreateDto.TypeEnum;
-    to: string | Array<string> | null;
 }
 export namespace NoteCreateDto {
     export type TypeEnum = 'Note';

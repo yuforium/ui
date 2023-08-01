@@ -1,0 +1,7 @@
+<div class="mb-3">
+<h4 class="text-xs">
+    {{ post.published | date }} 
+    - {{ isArray(post.to) ? $any(post.to).join("-") : post.to }}</h4>
+<p>{{ post.content }}</p>
+<app-note [post]="post"></app-note>
+</div>

@@ -37,11 +37,15 @@ export class ActivityPubService {
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string|string[], @Optional() configuration: Configuration) {
         if (configuration) {
             this.configuration = configuration;
         }
         if (typeof this.configuration.basePath !== 'string') {
+            if (Array.isArray(basePath) && basePath.length > 0) {
+                basePath = basePath[0];
+            }
+
             if (typeof basePath !== 'string') {
                 basePath = this.basePath;
             }
@@ -51,6 +55,7 @@ export class ActivityPubService {
     }
 
 
+    // @ts-ignore
     private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
         if (typeof value === "object" && value instanceof Date === false) {
             httpParams = this.addToHttpParamsRecursive(
@@ -90,6 +95,7 @@ export class ActivityPubService {
     }
 
     /**
+     * 
      * @param username 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -132,7 +138,8 @@ export class ActivityPubService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/outbox`,
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/outbox`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -145,6 +152,7 @@ export class ActivityPubService {
     }
 
     /**
+     * 
      * @param page 
      * @param username 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -191,7 +199,8 @@ export class ActivityPubService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/outbox/page/${encodeURIComponent(String(page))}`,
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/outbox/page/${this.configuration.encodeParam({name: "page", value: page, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -204,6 +213,7 @@ export class ActivityPubService {
     }
 
     /**
+     * 
      * @param username 
      * @param noteCreateDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -266,10 +276,11 @@ export class ActivityPubService {
             }
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/outbox`,
-            noteCreateDto,
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/outbox`;
+        return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: noteCreateDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

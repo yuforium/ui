@@ -19,6 +19,8 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { OrderedCollectionPageDto } from '../model/orderedCollectionPageDto';
+// @ts-ignore
 import { PersonDto } from '../model/personDto';
 // @ts-ignore
 import { UserContentQueryOptionsDto } from '../model/userContentQueryOptionsDto';
@@ -41,11 +43,15 @@ export class UserService {
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string|string[], @Optional() configuration: Configuration) {
         if (configuration) {
             this.configuration = configuration;
         }
         if (typeof this.configuration.basePath !== 'string') {
+            if (Array.isArray(basePath) && basePath.length > 0) {
+                basePath = basePath[0];
+            }
+
             if (typeof basePath !== 'string') {
                 basePath = this.basePath;
             }
@@ -55,6 +61,7 @@ export class UserService {
     }
 
 
+    // @ts-ignore
     private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
         if (typeof value === "object" && value instanceof Date === false) {
             httpParams = this.addToHttpParamsRecursive(
@@ -94,6 +101,7 @@ export class UserService {
     }
 
     /**
+     * 
      * @param userCreateDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -145,10 +153,11 @@ export class UserService {
             }
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/users`,
-            userCreateDto,
+        let localVarPath = `/users`;
+        return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: userCreateDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -159,6 +168,7 @@ export class UserService {
     }
 
     /**
+     * 
      * @param username 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -201,7 +211,8 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/exists/${encodeURIComponent(String(username))}`,
+        let localVarPath = `/users/exists/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -214,6 +225,7 @@ export class UserService {
     }
 
     /**
+     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -252,7 +264,8 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users`,
+        let localVarPath = `/users`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -265,6 +278,7 @@ export class UserService {
     }
 
     /**
+     * 
      * @param username 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -308,7 +322,8 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}`,
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -321,15 +336,16 @@ export class UserService {
     }
 
     /**
+     * 
      * @param username 
      * @param contentQuery 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<OrderedCollectionPageDto>;
+    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<OrderedCollectionPageDto>>;
+    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<OrderedCollectionPageDto>>;
+    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (username === null || username === undefined) {
             throw new Error('Required parameter username was null or undefined when calling getContent.');
         }
@@ -346,6 +362,7 @@ export class UserService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'application/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -370,7 +387,8 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/content`,
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/content`;
+        return this.httpClient.request<OrderedCollectionPageDto>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -384,6 +402,7 @@ export class UserService {
     }
 
     /**
+     * 
      * @param username The username of the user to get the inbox for.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -433,7 +452,8 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/inbox`,
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/inbox`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -446,6 +466,7 @@ export class UserService {
     }
 
     /**
+     * 
      * @param username The username of the user to get the inbox for.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -495,8 +516,68 @@ export class UserService {
             }
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/inbox`,
-            null,
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/inbox`;
+        return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param pageNumber 
+     * @param username 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public userContentControllerGetContentPage(pageNumber: number, username: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public userContentControllerGetContentPage(pageNumber: number, username: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public userContentControllerGetContentPage(pageNumber: number, username: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public userContentControllerGetContentPage(pageNumber: number, username: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (pageNumber === null || pageNumber === undefined) {
+            throw new Error('Required parameter pageNumber was null or undefined when calling userContentControllerGetContentPage.');
+        }
+        if (username === null || username === undefined) {
+            throw new Error('Required parameter username was null or undefined when calling userContentControllerGetContentPage.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/content/page/${this.configuration.encodeParam({name: "pageNumber", value: pageNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -555,7 +636,8 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(username))}/content/posts/${encodeURIComponent(String(postId))}`,
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "username", value: username, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/content/posts/${this.configuration.encodeParam({name: "postId", value: postId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -568,6 +650,7 @@ export class UserService {
     }
 
     /**
+     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -606,7 +689,8 @@ export class UserService {
             }
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/whoami`,
+        let localVarPath = `/users/whoami`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

@@ -2,11 +2,6 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-import { ActivityPubService } from './api/activityPub.service';
-import { AppService } from './api/app.service';
-import { AuthService } from './api/auth.service';
-import { DefaultService } from './api/default.service';
-import { UserService } from './api/user.service';
 
 @NgModule({
   imports:      [],

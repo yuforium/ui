@@ -12,22 +12,11 @@
 import { ObjectDtoTo } from './objectDtoTo';
 
 
-export interface PersonDto { 
-    /**
-     * The ID of the user
-     */
+export interface ObjectDto { 
     id: string;
     content: string;
     context: string;
     published: string;
     to: ObjectDtoTo;
-    /**
-     * The name of the user
-     */
-    name: string;
-    summary: string;
-    type: string;
-    preferredUsername: string;
-    following: string;
 }
 
