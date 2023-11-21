@@ -14,9 +14,17 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
   },
+  // {
+  //   path: 'forum',
+  //   loadChildren: () => import('./modules/forum/forum.module').then(m => m.ForumModule),
+  // },
   {
-    path: 'forum',
-    loadChildren: () => import('./modules/forum/forum.module').then(m => m.ForumModule),
+    path: 'f',
+    loadChildren: () => import('./forum/forum.routes').then(m => m.FORUM_ROUTES),
+  },
+  {
+    path: 'forums',
+    loadChildren: () => import('./forum/forum.routes').then(m => m.FORUM_ROUTES)
   }
 ];
 

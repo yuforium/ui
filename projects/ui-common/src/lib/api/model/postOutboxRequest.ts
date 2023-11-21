@@ -9,21 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { NoteCreateDto } from './noteCreateDto';
 import { NoteCreateDtoName } from './noteCreateDtoName';
 import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
 
-export interface NoteCreateDto { 
-    type: NoteCreateDto.TypeEnum;
-    content: NoteCreateDtoContent;
-    name?: NoteCreateDtoName;
-    to: NoteCreateDtoName;
-}
-export namespace NoteCreateDto {
-    export type TypeEnum = 'Note';
-    export const TypeEnum = {
-        Note: 'Note' as TypeEnum
-    };
-}
-
+/**
+ * @type PostOutboxRequest
+ * @export
+ */
+export type PostOutboxRequest = NoteCreateDto;
 

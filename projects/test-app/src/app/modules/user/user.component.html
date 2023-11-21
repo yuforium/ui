@@ -1,7 +1,9 @@
-<div class="mb-5">
+<div class="mb-5 relative">
   <!-- <div>{{ person | json }}</div> -->
   <h1 class="text-2xl">{{ person?.name || person?.preferredUsername }}</h1>
   {{ person?.id }}
+
+  <a class="btn btn-primary absolute top-0 right-0">Post!</a>
 </div>
 
 <div class="grid grid-cols-3 gap-8">
@@ -23,22 +25,8 @@
 
   <div class="col-span-2">
     <div *ngFor="let post of posts$ | async" class="mb-3">
-      <h4 class="text-xs">{{ post.published | date }} - {{ isArray(post.to) ? post.to.join("-") : post.to }}</h4>
-      <p>{{ post.content }}</p>
+      <app-note [post]="post"></app-note>
     </div>
   </div>
 
-  <!-- <div>
-    <label for="about" class="block text-sm font-medium text-gray-700"> About </label>
-    <div class="mt-1">
-      <textarea #postbox rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
-    </div>
-    <p class="mt-2 text-sm text-gray-500">Brief description for your profile. URLs are hyperlinked.</p>
-    <button (click)="postMessage(postbox.value)" type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-      Post
-    </button>
-  </div>
-
-  <div>
-  </div> -->
 </div>

@@ -13,17 +13,14 @@ import { NoteCreateDtoName } from './noteCreateDtoName';
 import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
 
-export interface NoteCreateDto { 
-    type: NoteCreateDto.TypeEnum;
+export interface ForumDto { 
+    id: string;
+    type: string;
+    attributedTo: string;
     content: NoteCreateDtoContent;
+    context: string;
     name?: NoteCreateDtoName;
-    to: NoteCreateDtoName;
+    published: string;
+    to?: NoteCreateDtoName;
 }
-export namespace NoteCreateDto {
-    export type TypeEnum = 'Note';
-    export const TypeEnum = {
-        Note: 'Note' as TypeEnum
-    };
-}
-
 

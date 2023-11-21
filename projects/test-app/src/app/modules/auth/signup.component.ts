@@ -80,7 +80,7 @@ export class SignupComponent implements OnInit {
   onSignup(response: HttpResponse<any>) {
     this.appService.login(this.signupForm.get('username')?.value, this.signupForm.get('password')?.value)
       .subscribe(response => {
-        this.router.navigate(['/user', response.preferredUsername]);
+        this.router.navigate(['/users', response.preferredUsername]);
       });
   }
 

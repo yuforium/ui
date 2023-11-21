@@ -1,3 +1,8 @@
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- header placed at end so that it stacks properly -->
 <div class="navbar bg-base-200 mx-auto">
   <div class="flex-1">
     <a [routerLink]="['/']" class="btn btn-ghost lowercase text-2xl font-abz-sans">{{ title }}</a>
@@ -5,6 +10,15 @@
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
       <ng-template #notLoggedIn>
+        <!-- <div class="dropdown dropdown-end dropdown-bottom relative">
+          <label tabindex="0" class="btn m-1">Click</label>
+          <div tabindex="0" class="dropdown-content z-50 card card-compact w-64 p-2 shadow bg-primary text-primary-content relative">
+            <div class="card-body">
+              <h3 class="card-title">Card title!</h3>
+              <p>you can use any element as a dropdown.</p>
+            </div>
+          </div>
+        </div> -->
         <li>
           <a class="btn" [routerLink]="['/login']">login</a>
         </li>
@@ -28,8 +42,4 @@
       </li>
     </ul>
   </div>
-</div>
-
-<div class="content">
-  <router-outlet></router-outlet>
 </div>

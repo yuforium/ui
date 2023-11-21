@@ -1,0 +1,7 @@
+<div class="relative">
+    <h3>{{ forum?.name }}</h3>
+    <p>{{ forum?.summary }}</p>
+    <a [routerLink]="['post']" class="btn btn-primary absolute top-0 right-0" href="#">Post</a>
+</div>
+
+<router-outlet></router-outlet>

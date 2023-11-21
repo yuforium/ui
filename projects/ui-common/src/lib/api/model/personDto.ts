@@ -9,7 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ObjectDtoTo } from './objectDtoTo';
+import { PersonDtoName } from './personDtoName';
+import { NoteCreateDtoName } from './noteCreateDtoName';
+import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
 
 export interface PersonDto { 
@@ -17,16 +19,14 @@ export interface PersonDto {
      * The ID of the user
      */
     id: string;
-    content: string;
-    context: string;
-    published: string;
-    to: ObjectDtoTo;
-    /**
-     * The name of the user
-     */
-    name: string;
-    summary: string;
     type: string;
+    attributedTo: string;
+    content: NoteCreateDtoContent;
+    context: string;
+    name?: PersonDtoName;
+    published: string;
+    to?: NoteCreateDtoName;
+    summary: string;
     preferredUsername: string;
     following: string;
 }

@@ -9,14 +9,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ObjectDtoTo } from './objectDtoTo';
+import { NoteCreateDtoName } from './noteCreateDtoName';
+import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
 
 export interface ObjectDto { 
     id: string;
-    content: string;
+    type: string;
+    attributedTo: string;
+    content: NoteCreateDtoContent;
     context: string;
+    name?: NoteCreateDtoName;
     published: string;
-    to: ObjectDtoTo;
+    to?: NoteCreateDtoName;
 }
 
