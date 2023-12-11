@@ -1,7 +1,7 @@
-import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService, Configuration, PersonDto } from 'projects/ui-common/src/lib/api';
 import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface StoredApiToken {
   accessToken: string;
@@ -37,6 +37,50 @@ export class AppService {
         });
       }
     }
+  }
+
+  public get title(): string {
+    // for complete coverage we could use something like parse-domain to get the correct sld, but that adds a lot of overhead
+    const tlds = ['.local', '.com', '.net', '.org', '.dev'];
+
+    if (environment.appName) {
+      return environment.appName;
+    }
+
+    let hostname = window.location.hostname;
+
+    for (const tld of tlds) {
+      if (hostname.endsWith(tld)) {
+        hostname = hostname.substring(0, hostname.length - tld.length) as string;
+        return hostname.split('.').pop() as string;
+      }
+    }
+
+    if (hostname === 'localhost') {
+      return 'yuforium local';
+    }
+
+    return 'Yuforium';
+  }
+
+  public get baseDomain(): string {
+    // for complete coverage we could use something like parse-domain to get the correct sld, but that adds a lot of overhead
+    const tlds = ['.local', '.com', '.net', '.org', '.dev'];
+
+    let hostname = window.location.hostname;
+
+    for (const tld of tlds) {
+      if (hostname.endsWith(tld)) {
+        hostname = hostname.substring(0, hostname.length - tld.length) as string;
+        return hostname.split('.').pop() as string + tld;
+      }
+    }
+
+    if (hostname === 'localhost') {
+      return 'localhost';
+    }
+
+    return 'yuforium';
   }
 
   public get authenticated(): boolean {

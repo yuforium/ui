@@ -12,12 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public readonly title = environment.appName;
+  public readonly title;
   public $user!: BehaviorSubject<PersonDto | null>
 
   username: string = 'test';
 
   constructor(readonly appService: AppService, readonly titleService: Title, protected router: Router) {
+    this.title = appService.title;
     this.titleService.setTitle(this.title);
     this.$user = this.appService.$user;
   }
