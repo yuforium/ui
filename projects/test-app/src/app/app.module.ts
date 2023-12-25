@@ -9,11 +9,17 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { AppService } from './app.service';
 import { AboutComponent } from './about/about.component';
+import { NoteComponent } from './components/content/note/note.component';
 
 const apiConfigFactory = (): Configuration => {
-  const params: ConfigurationParameters = {
-    basePath: environment.apiBasePath
-  };
+  const params: ConfigurationParameters = {};
+  if (environment.apiBasePath) {
+    params.basePath = environment.apiBasePath;
+  }
+  else {
+    const sld = AppService.sld;
+    params.basePath = `https://${sld}`;
+  }
 
   return new Configuration(params);
 }

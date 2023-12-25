@@ -170,7 +170,7 @@
             },
             "development": {
               "browserTarget": "test-app:build:development",
-              "disableHostCheck": true
+              "disableHostCheck": false
             }
           },
           "defaultConfiguration": "development"

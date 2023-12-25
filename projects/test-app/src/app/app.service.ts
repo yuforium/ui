@@ -39,6 +39,20 @@ export class AppService {
     }
   }
 
+  public static get sld(): string | undefined {
+    const tlds = ['.local', '.com', '.net', '.org', '.dev'];
+    let name = window.location.hostname;
+
+    for (const tld of tlds) {
+      if (name.endsWith(tld)) {
+        name = name.substring(0, name.length - tld.length);
+        return `${name.split('.').pop()}${tld}`;
+      }
+    }
+
+    return undefined;
+  }
+
   public get title(): string {
     // for complete coverage we could use something like parse-domain to get the correct sld, but that adds a lot of overhead
     const tlds = ['.local', '.com', '.net', '.org', '.dev'];

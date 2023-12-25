@@ -14,7 +14,7 @@ export class UserComponent implements OnInit {
   public username: string = '';
   public person: PersonDto | null = null;
   public activity: any[] = [];
-  public posts$: Observable<any>|undefined
+  public posts$: Observable<any> | undefined
   public skip: number = 0;
   public limit: number = 10;
 
@@ -69,7 +69,8 @@ export class UserComponent implements OnInit {
     const data: NoteCreateDto = {
       type: 'Note',
       content: message,
-      to: to
+      to: to,
+      attributedTo: "" // populated by server
     }
 
     this.activityPubService.postUserOutbox(this.username, data).subscribe(response => {

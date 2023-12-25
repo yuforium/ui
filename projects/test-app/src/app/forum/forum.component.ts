@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ForumService } from 'projects/ui-common/src/lib/api';
@@ -10,19 +10,26 @@ import { ForumService } from 'projects/ui-common/src/lib/api';
   templateUrl: './forum.component.html',
   styleUrls: ['./forum.component.css']
 })
-export class ForumComponent {
+export class ForumComponent implements OnInit {
   forum: any;
 
   constructor(
     protected route: ActivatedRoute, 
-    protected ForumService: ForumService
-  ) {
+    protected forumService: ForumService
+  ) { }
+
+  ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log('id', params['forumId']);
-      this.ForumService.getForum(params['forumId']).subscribe(forum => {
+      this.forumService.getForum(params['forumId']).subscribe(forum => {
         console.log('forum', forum);
         this.forum = forum;
       });
+    });
+  }
+
+  loadForum() {
+    this.forumService.getForum(this.forum.id).subscribe(forum => {
+      this.forum = forum;
     });
   }
 }

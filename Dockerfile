@@ -1,7 +1,7 @@
 FROM node:latest as builder
 WORKDIR /usr/local/app
 COPY . /usr/local/app/
-RUN ls -l && npm i && npm run build test-app --prod
+RUN npm ci && npm run build test-app --prod
 
 FROM nginx:latest
 COPY --from=builder /usr/local/app/dist/test-app /usr/share/nginx/html

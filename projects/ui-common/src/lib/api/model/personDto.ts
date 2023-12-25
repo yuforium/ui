@@ -28,6 +28,5 @@ export interface PersonDto {
     to?: NoteCreateDtoName;
     summary: string;
     preferredUsername: string;
-    following: string;
 }
 

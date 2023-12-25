@@ -15,6 +15,7 @@ import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
 export interface NoteCreateDto { 
     type: NoteCreateDto.TypeEnum;
+    attributedTo: string;
     content: NoteCreateDtoContent;
     name?: NoteCreateDtoName;
     to: NoteCreateDtoName;
