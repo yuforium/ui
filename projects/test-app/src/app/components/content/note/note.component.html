@@ -1,8 +1,7 @@
 <div class="mb-3">
     <div class="mb-2">
-        Note
-        <h3 class="text-sm" *ngIf="post.name">{{ post.name }}</h3>
         <h4 class="text-xs">posted by @cpmoser {{ post.published | date }}</h4>
+        <h3 class="text-sm" *ngIf="post.name">{{ post.name }}</h3>
     </div>
     <p>{{ post.content }}</p>
 </div>
