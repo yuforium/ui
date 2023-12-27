@@ -1,5 +1,5 @@
+export * from './contentQueryOptionsDto';
 export * from './forumCreateDto';
-export * from './forumDto';
 export * from './loginDto';
 export * from './noteCreateDto';
 export * from './noteCreateDtoContent';

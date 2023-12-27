@@ -1,5 +1,5 @@
 /**
- * Yuforium API Specification
+ * Yuforium
  * Yuforium API specification
  *
  * The version of the OpenAPI document: 1.0
@@ -15,7 +15,7 @@ import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
 export interface NoteCreateDto { 
     type: NoteCreateDto.TypeEnum;
-    attributedTo: string;
+    attributedTo?: string;
     content: NoteCreateDtoContent;
     name?: NoteCreateDtoName;
     to: NoteCreateDtoName;

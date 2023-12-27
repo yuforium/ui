@@ -1,5 +1,5 @@
 /**
- * Yuforium API Specification
+ * Yuforium
  * Yuforium API specification
  *
  * The version of the OpenAPI document: 1.0
@@ -19,9 +19,11 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { ContentQueryOptionsDto } from '../model/contentQueryOptionsDto';
+// @ts-ignore
 import { ForumCreateDto } from '../model/forumCreateDto';
 // @ts-ignore
-import { ForumDto } from '../model/forumDto';
+import { OrderedCollectionPageDto } from '../model/orderedCollectionPageDto';
 // @ts-ignore
 import { PostOutboxRequest } from '../model/postOutboxRequest';
 
@@ -220,16 +222,16 @@ export class ForumService {
 
     /**
      * 
-     * @param pathId 
+     * @param forumname 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getForum(pathId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ForumDto>;
-    public getForum(pathId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ForumDto>>;
-    public getForum(pathId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ForumDto>>;
-    public getForum(pathId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (pathId === null || pathId === undefined) {
-            throw new Error('Required parameter pathId was null or undefined when calling getForum.');
+    public getForum(forumname: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
+    public getForum(forumname: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public getForum(forumname: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public getForum(forumname: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (forumname === null || forumname === undefined) {
+            throw new Error('Required parameter forumname was null or undefined when calling getForum.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -263,8 +265,8 @@ export class ForumService {
             }
         }
 
-        let localVarPath = `/forums/${this.configuration.encodeParam({name: "pathId", value: pathId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<ForumDto>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/forums/${this.configuration.encodeParam({name: "forumname", value: forumname, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<object>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -278,16 +280,82 @@ export class ForumService {
 
     /**
      * Get forum content
-     * @param pathId 
+     * @param forumname 
+     * @param contentQuery 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getForumContent(pathId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public getForumContent(pathId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public getForumContent(pathId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public getForumContent(pathId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (pathId === null || pathId === undefined) {
-            throw new Error('Required parameter pathId was null or undefined when calling getForumContent.');
+    public getForumContent(forumname: string, contentQuery?: ContentQueryOptionsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<OrderedCollectionPageDto>;
+    public getForumContent(forumname: string, contentQuery?: ContentQueryOptionsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<OrderedCollectionPageDto>>;
+    public getForumContent(forumname: string, contentQuery?: ContentQueryOptionsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<OrderedCollectionPageDto>>;
+    public getForumContent(forumname: string, contentQuery?: ContentQueryOptionsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (forumname === null || forumname === undefined) {
+            throw new Error('Required parameter forumname was null or undefined when calling getForumContent.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (contentQuery !== undefined && contentQuery !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>contentQuery, 'contentQuery');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/forums/${this.configuration.encodeParam({name: "forumname", value: forumname, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/content`;
+        return this.httpClient.request<OrderedCollectionPageDto>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * @param forumname 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getForumInbox(forumname: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public getForumInbox(forumname: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public getForumInbox(forumname: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public getForumInbox(forumname: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (forumname === null || forumname === undefined) {
+            throw new Error('Required parameter forumname was null or undefined when calling getForumInbox.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -320,7 +388,7 @@ export class ForumService {
             }
         }
 
-        let localVarPath = `/forums/${this.configuration.encodeParam({name: "pathId", value: pathId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/content`;
+        let localVarPath = `/forums/${this.configuration.encodeParam({name: "forumname", value: forumname, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/inbox`;
         return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -335,16 +403,16 @@ export class ForumService {
 
     /**
      * 
-     * @param pathId 
+     * @param forumname 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getForumInbox(pathId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public getForumInbox(pathId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public getForumInbox(pathId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public getForumInbox(pathId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (pathId === null || pathId === undefined) {
-            throw new Error('Required parameter pathId was null or undefined when calling getForumInbox.');
+    public postForumInbox(forumname: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public postForumInbox(forumname: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public postForumInbox(forumname: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public postForumInbox(forumname: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (forumname === null || forumname === undefined) {
+            throw new Error('Required parameter forumname was null or undefined when calling postForumInbox.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -377,64 +445,7 @@ export class ForumService {
             }
         }
 
-        let localVarPath = `/forums/${this.configuration.encodeParam({name: "pathId", value: pathId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/inbox`;
-        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * @param pathId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public postForumInbox(pathId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public postForumInbox(pathId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public postForumInbox(pathId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public postForumInbox(pathId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (pathId === null || pathId === undefined) {
-            throw new Error('Required parameter pathId was null or undefined when calling postForumInbox.');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/forums/${this.configuration.encodeParam({name: "pathId", value: pathId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/inbox`;
+        let localVarPath = `/forums/${this.configuration.encodeParam({name: "forumname", value: forumname, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/inbox`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -449,17 +460,17 @@ export class ForumService {
 
     /**
      * Post to a forum outbox
-     * @param pathId 
+     * @param forumname 
      * @param postOutboxRequest 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public postOutbox(pathId: string, postOutboxRequest: PostOutboxRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public postOutbox(pathId: string, postOutboxRequest: PostOutboxRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public postOutbox(pathId: string, postOutboxRequest: PostOutboxRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public postOutbox(pathId: string, postOutboxRequest: PostOutboxRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (pathId === null || pathId === undefined) {
-            throw new Error('Required parameter pathId was null or undefined when calling postOutbox.');
+    public postOutbox(forumname: string, postOutboxRequest: PostOutboxRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public postOutbox(forumname: string, postOutboxRequest: PostOutboxRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public postOutbox(forumname: string, postOutboxRequest: PostOutboxRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public postOutbox(forumname: string, postOutboxRequest: PostOutboxRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (forumname === null || forumname === undefined) {
+            throw new Error('Required parameter forumname was null or undefined when calling postOutbox.');
         }
         if (postOutboxRequest === null || postOutboxRequest === undefined) {
             throw new Error('Required parameter postOutboxRequest was null or undefined when calling postOutbox.');
@@ -511,7 +522,7 @@ export class ForumService {
             }
         }
 
-        let localVarPath = `/forums/${this.configuration.encodeParam({name: "pathId", value: pathId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/outbox`;
+        let localVarPath = `/forums/${this.configuration.encodeParam({name: "forumname", value: forumname, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/outbox`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

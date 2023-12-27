@@ -1,6 +1,8 @@
-<p>forum-index works!</p>
+<div>
+  <div class="relative mb-4">
+    <a [routerLink]="['post']" class="btn btn-primary" href="#">Post</a>
+  </div>
 
-<div class="col-span-2">
   <div *ngFor="let post of posts$ | async" class="mb-3">
     <app-note [post]="post"></app-note>
   </div>

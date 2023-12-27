@@ -12,8 +12,8 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/contentQueryOptionsDto.ts
 model/forumCreateDto.ts
-model/forumDto.ts
 model/loginDto.ts
 model/models.ts
 model/noteCreateDto.ts

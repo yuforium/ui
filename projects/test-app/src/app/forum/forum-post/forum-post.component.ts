@@ -23,17 +23,16 @@ export class ForumPostComponent {
     });
   }
 
-  public post(title: string, content: string, addressee?: string) {
-    console.log('Post Message', title, content, addressee);
-
-    console.log('this is a test');
+  public post(name: string, content: string, addressee?: string) {
+    console.log('Post Message', name, content, addressee);
     const to = addressee || 'https://www.w3.org/ns/activitystreams#Public';
 
     const data: any = {
       '@context': 'https://www.w3.org/ns/activitystreams',
       type: 'Note',
       to,
-      content
+      content,
+      name
     };
 
     console.log('no network request made?');

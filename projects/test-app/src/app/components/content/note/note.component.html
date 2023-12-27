@@ -1,7 +1,8 @@
 <div class="mb-3">
     <div class="mb-2">
-        <h4 class="text-xs">posted by @cpmoser {{ post.published | date }}</h4>
-        <h3 class="text-sm" *ngIf="post.name">{{ post.name }}</h3>
+        <h4 class="text-xs">posted by {{ post.attributedTo | json }} {{ post.published | date }}</h4>
+        <h3 class="text" *ngIf="post.name">{{ post.name }}</h3>
+        <h3 class="text" *ngIf="!post.name">&lt;No Title&gt;</h3>
     </div>
     <p>{{ post.content }}</p>
 </div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ForumService } from 'projects/ui-common/src/lib/api';
 import { Observable, map, switchMap } from 'rxjs';
 import { NoteComponent } from '../../components/content/note/note.component';
@@ -10,6 +10,7 @@ import { NoteComponent } from '../../components/content/note/note.component';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     NoteComponent
   ],
   templateUrl: './forum-index.component.html',

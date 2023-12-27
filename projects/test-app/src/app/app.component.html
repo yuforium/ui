@@ -27,7 +27,7 @@
         </li>
       </ng-template>
       <li class="dropdown dropdown-end" *ngIf="$user | async as user; else notLoggedIn">
-        <label tabindex="0" class="btn btn-ghost rounded-btn">@{{ user.preferredUsername }}</label>
+        <label tabindex="0" class="btn btn-ghost rounded-btn">&#64;{{ user.preferredUsername }}</label>
         <ul #menu tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box mt-4">
           <li (click)="menu.blur()"><a [routerLink]="['/', 'users', user.preferredUsername]">Profile</a></li>
           <li (click)="menu.blur()"><a (click)="logout()">Logout</a></li>

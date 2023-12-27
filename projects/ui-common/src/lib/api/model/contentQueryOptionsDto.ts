@@ -11,7 +11,7 @@
  */
 
 
-export interface UserContentQueryOptionsDto { 
+export interface ContentQueryOptionsDto { 
     /**
      * Comma separated list of Activity Streams object types to include in the response.
      */

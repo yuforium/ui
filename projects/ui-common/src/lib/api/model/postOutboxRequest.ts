@@ -1,5 +1,5 @@
 /**
- * Yuforium API Specification
+ * Yuforium
  * Yuforium API specification
  *
  * The version of the OpenAPI document: 1.0
