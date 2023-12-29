@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivityPubService } from 'projects/ui-common/src/lib/api/api/activityPub.service';
 import { ForumService } from 'projects/ui-common/src/lib/api';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-forum-post',
@@ -13,9 +12,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ForumPostComponent {
   public forumId: string = '';
+  public loading: boolean = false;
 
   constructor(
     protected forumService: ForumService,
+    protected router: Router,
     protected route: ActivatedRoute
   ) {
     this.route.parent?.params.subscribe(params => {
@@ -35,9 +36,19 @@ export class ForumPostComponent {
       name
     };
 
-    console.log('no network request made?');
-    this.forumService.postOutbox(this.forumId, data).subscribe((response: any) => {
-      console.log('response', response);
-    });
+    this.loading = true;
+    this.forumService.postOutbox(this.forumId, data)
+      .subscribe({
+        next: response => this.onPostComplete(),
+        error: err => this.onPostError(err)
+      });
+  }
+
+  protected onPostComplete() {
+    this.router.navigate(['..'], {relativeTo: this.route});
+  }
+
+  protected onPostError(err: any) {
+    // handle error
   }
 }

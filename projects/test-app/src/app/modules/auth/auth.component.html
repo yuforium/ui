@@ -22,5 +22,5 @@
     <input #password type="password" name="password" placeholder="Enter your password" />
   </div>
 
-  <button class="btn btn-primary mb-4" (click)="login(username.value, password.value)">Login</button>
+  <button class="btn btn-primary mb-4" (click)="login(username.value, password.value)" [disabled]="loading">Login</button>
 </div>
