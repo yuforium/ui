@@ -30,7 +30,7 @@ export class ForumPostComponent {
 
     const data: any = {
       '@context': 'https://www.w3.org/ns/activitystreams',
-      type: 'Note',
+      type: content.length > 500 ? 'Article' : 'Note',
       to,
       content,
       name

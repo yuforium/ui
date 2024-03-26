@@ -28,5 +28,9 @@ export interface UserContentQueryOptionsDto {
      * The sort order of the returned items.
      */
     sort?: string;
+    /**
+     * Comma separated list of fields to resolve.  If an object is provided, the key is the field to resolve and the value is a comma separated list of fields to include in the resolved object.
+     */
+    resolveFields?: Array<string>;
 }
 

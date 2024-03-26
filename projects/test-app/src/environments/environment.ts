@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiBasePath: 'http://localhost:3000',
-  appName: undefined
+  // apiBasePath: "https://yuforium.dev",
+  appName: undefined,
 };
 
 /*

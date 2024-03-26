@@ -1,28 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ActivityPubService, NoteCreateDto } from 'projects/ui-common/src/lib/api';
-import { UserService } from 'projects/ui-common/src/lib/api/api/user.service';
-import { PersonDto } from 'projects/ui-common/src/lib/api/model/personDto';
-import { Observable, map, pluck, shareReplay, switchMap } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import {
+  ActivityPubService,
+  NoteCreateDto,
+} from "projects/ui-common/src/lib/api";
+import { UserService } from "projects/ui-common/src/lib/api/api/user.service";
+import { PersonDto } from "projects/ui-common/src/lib/api/model/personDto";
+import { Observable, map, pluck, shareReplay, switchMap } from "rxjs";
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: "app-user",
+  templateUrl: "./user.component.html",
+  styleUrls: ["./user.component.css"],
 })
 export class UserComponent implements OnInit {
-  public username: string = '';
+  public username: string = "";
   public person: PersonDto | null = null;
   public activity: any[] = [];
-  public posts$: Observable<any> | undefined
+  public posts$: Observable<any> | undefined;
   public skip: number = 0;
   public limit: number = 10;
 
   constructor(
     private route: ActivatedRoute,
     protected userService: UserService,
-    protected activityPubService: ActivityPubService
-  ) { }
+    protected activityPubService: ActivityPubService,
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: any) => {
@@ -32,15 +35,19 @@ export class UserComponent implements OnInit {
   }
 
   loadContent() {
-    this.posts$ = this.userService.get(this.username)
-      .pipe(
-        switchMap(response => {
-          this.person = response;
-          return this.userService.getContent(this.username, {type: 'Note', skip: this.skip, limit: this.limit, sort: '-published'});
-        }),
-        map(response => response.items),
-        shareReplay()
-      );
+    this.posts$ = this.userService.get(this.username).pipe(
+      switchMap((response) => {
+        this.person = response;
+        return this.userService.getContent(this.username, {
+          type: "Note",
+          skip: this.skip,
+          limit: this.limit,
+          sort: "-published",
+        });
+      }),
+      map((response) => response.items),
+      shareReplay(),
+    );
   }
 
   isArray(value: any): boolean {
@@ -55,26 +62,25 @@ export class UserComponent implements OnInit {
      * https://www.w3.org/ns/activitystreams#Public
      *
      */
-    let to: string|string[];
+    let to: string | string[];
 
     if (addressee) {
-      to = [
-        addressee, 'https://www.w3.org/ns/activitystreams#Public'
-      ]
-    }
-    else {
-      to = 'https://www.w3.org/ns/activitystreams#Public';
+      to = [addressee, "https://www.w3.org/ns/activitystreams#Public"];
+    } else {
+      to = "https://www.w3.org/ns/activitystreams#Public";
     }
 
     const data: NoteCreateDto = {
-      type: 'Note',
+      type: "Note",
       content: message,
       to: to,
-      attributedTo: "" // populated by server
-    }
+      attributedTo: "", // populated by server
+    };
 
-    this.activityPubService.postUserOutbox(this.username, data).subscribe(response => {
-      this.loadContent();
-    });
+    this.activityPubService
+      .postUserOutbox(this.username, data)
+      .subscribe((response) => {
+        this.loadContent();
+      });
   }
 }

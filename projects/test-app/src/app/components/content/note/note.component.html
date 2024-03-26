@@ -1,8 +1,12 @@
 <div class="mb-5">
     <div class="m-2">
-        <h4 class="text-xs">posted by {{ post.attributedTo | json }} {{ post.published | date }}</h4>
+        <h4 class="text-xs">
+            {{ post.type }} &bullet; by {{ post.attributedTo.name }}
+
+
+            {{ post.published | date }}
+        </h4>
         <h3 class="text" *ngIf="post.name">{{ post.name }}</h3>
-        <h3 class="text" *ngIf="!post.name">&lt;No Title&gt;</h3>
-        <p>{{ post.content }}</p>
+        <p [innerHTML]="post.content"></p>
     </div>
 </div>

@@ -26,6 +26,8 @@ export interface PersonDto {
     name?: PersonDtoName;
     published: string;
     to?: NoteCreateDtoName;
+    cc?: NoteCreateDtoName;
+    bcc?: NoteCreateDtoName;
     summary: string;
     preferredUsername: string;
 }
