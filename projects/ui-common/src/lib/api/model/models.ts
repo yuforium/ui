@@ -5,6 +5,7 @@ export * from './noteCreateDto';
 export * from './noteCreateDtoContent';
 export * from './noteCreateDtoName';
 export * from './objectDto';
+export * from './objectDtoAttributedTo';
 export * from './orderedCollectionPageDto';
 export * from './personDto';
 export * from './personDtoName';

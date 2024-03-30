@@ -9,22 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ObjectDto } from './objectDto';
 import { NoteCreateDtoName } from './noteCreateDtoName';
 import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
 
-export interface NoteCreateDto { 
-    type: NoteCreateDto.TypeEnum;
-    content: NoteCreateDtoContent;
-    name?: NoteCreateDtoName;
-    to: NoteCreateDtoName;
-    attributedTo?: NoteCreateDtoName;
-}
-export namespace NoteCreateDto {
-    export type TypeEnum = 'Note';
-    export const TypeEnum = {
-        Note: 'Note' as TypeEnum
-    };
-}
-
+/**
+ * @type ObjectDtoAttributedTo
+ * @export
+ */
+export type ObjectDtoAttributedTo = ObjectDto | object | string;
 

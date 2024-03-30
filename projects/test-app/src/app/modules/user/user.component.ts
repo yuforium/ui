@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { ActivityStreams, Person } from "@yuforium/activity-streams";
 import {
   ActivityPubService,
   NoteCreateDto,
@@ -45,7 +46,7 @@ export class UserComponent implements OnInit {
           sort: "-published",
         });
       }),
-      map((response) => response.items),
+      map((response) => response.items.map(i => ActivityStreams.transform(i) as Person)),
       shareReplay(),
     );
   }

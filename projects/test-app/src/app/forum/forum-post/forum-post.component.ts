@@ -25,7 +25,6 @@ export class ForumPostComponent {
   }
 
   public post(name: string, content: string, addressee?: string) {
-    console.log('Post Message', name, content, addressee);
     const to = addressee || 'https://www.w3.org/ns/activitystreams#Public';
 
     const data: any = {

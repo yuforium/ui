@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { PersonDtoName } from './personDtoName';
+import { ObjectDtoAttributedTo } from './objectDtoAttributedTo';
 import { NoteCreateDtoName } from './noteCreateDtoName';
 import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
@@ -20,7 +21,7 @@ export interface PersonDto {
      */
     id: string;
     type: string;
-    attributedTo: string;
+    attributedTo: ObjectDtoAttributedTo;
     content: NoteCreateDtoContent;
     context: string;
     name?: PersonDtoName;

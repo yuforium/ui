@@ -27,13 +27,9 @@ export class ForumIndexComponent {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: any) => {
-      console.log('loading content');
       this.posts$ = this.forumService.getForumContent(params['forumId'])
         .pipe(
-          map(response => {
-            console.log('response is', response);
-            return response.items;
-          })
+          map(response => response.items)
         );
     });
   }
@@ -41,10 +37,7 @@ export class ForumIndexComponent {
   loadContent() {
     this.posts$ = this.forumService.getForumContent(this.forumname)
       .pipe(
-        map(response => {
-          console.log(response);
-          return response.items;
-        })
+        map(response => response.items)
       )
   }
 }

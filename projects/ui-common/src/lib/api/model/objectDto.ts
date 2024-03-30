@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ObjectDtoAttributedTo } from './objectDtoAttributedTo';
 import { NoteCreateDtoName } from './noteCreateDtoName';
 import { NoteCreateDtoContent } from './noteCreateDtoContent';
 
@@ -16,7 +17,7 @@ import { NoteCreateDtoContent } from './noteCreateDtoContent';
 export interface ObjectDto { 
     id: string;
     type: string;
-    attributedTo: string;
+    attributedTo: ObjectDtoAttributedTo;
     content: NoteCreateDtoContent;
     context: string;
     name?: NoteCreateDtoName;

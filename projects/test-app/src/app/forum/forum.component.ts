@@ -14,14 +14,13 @@ export class ForumComponent implements OnInit {
   forum: any;
 
   constructor(
-    protected route: ActivatedRoute, 
+    protected route: ActivatedRoute,
     protected forumService: ForumService
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.forumService.getForum(params['forumId']).subscribe(forum => {
-        console.log('forum', forum);
         this.forum = forum;
       });
     });

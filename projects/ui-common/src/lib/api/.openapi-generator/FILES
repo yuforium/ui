@@ -20,6 +20,7 @@ model/noteCreateDto.ts
 model/noteCreateDtoContent.ts
 model/noteCreateDtoName.ts
 model/objectDto.ts
+model/objectDtoAttributedTo.ts
 model/orderedCollectionPageDto.ts
 model/personDto.ts
 model/personDtoName.ts

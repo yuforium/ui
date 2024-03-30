@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ObjectDto } from "projects/ui-common/src/lib/api";
+import { ObjectDto, ObjectDtoAttributedTo } from "projects/ui-common/src/lib/api";
 
 @Component({
   selector: "app-note",
@@ -10,13 +10,13 @@ import { ObjectDto } from "projects/ui-common/src/lib/api";
   styleUrls: ["./note.component.css"],
 })
 export class NoteComponent {
-  @Input() public post!: ObjectDto;
+  @Input() public post!: any;
 
   isArray(value: any): boolean {
     return Array.isArray(value);
   }
 
-  getAuthor(attributedTo: string | string[]): string {
+  getAuthor(attributedTo: string | string[] | ObjectDtoAttributedTo): string {
     const author: string = Array.isArray(attributedTo)
       ? attributedTo[0]
       : attributedTo;
@@ -24,16 +24,23 @@ export class NoteComponent {
     return author;
   }
 
+  getAuthorName() {
+
+  }
+
   isString(value: any): boolean {
     return typeof value === "string";
   }
 
-  isObject(value: any): boolean {
-    console.log(value.name);
-    return false;
-  }
-
   isPerson(value: any): boolean {
     return value.type === 'Person';
+  }
+
+  typeOf(value: any): string | undefined {
+    if (typeof value === 'object') {
+      return value.type;
+    }
+
+    return undefined;
   }
 }
