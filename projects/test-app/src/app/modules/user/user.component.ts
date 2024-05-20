@@ -1,13 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ActivityStreams, Person } from "@yuforium/activity-streams";
 import {
   ActivityPubService,
   NoteCreateDto,
 } from "projects/ui-common/src/lib/api";
 import { UserService } from "projects/ui-common/src/lib/api/api/user.service";
 import { PersonDto } from "projects/ui-common/src/lib/api/model/personDto";
-import { Observable, map, pluck, shareReplay, switchMap } from "rxjs";
+import { Observable, map, shareReplay, switchMap } from "rxjs";
 
 @Component({
   selector: "app-user",
@@ -46,7 +45,7 @@ export class UserComponent implements OnInit {
           sort: "-published",
         });
       }),
-      map((response) => response.items.map(i => ActivityStreams.transform(i) as Person)),
+      map((response) => response.items),
       shareReplay(),
     );
   }
@@ -68,7 +67,7 @@ export class UserComponent implements OnInit {
     if (addressee) {
       to = [addressee, "https://www.w3.org/ns/activitystreams#Public"];
     } else {
-      to = "https://www.w3.org/ns/activitystreams#Public";
+      to = ["https://www.w3.org/ns/activitystreams#Public"];
     }
 
     const data: NoteCreateDto = {

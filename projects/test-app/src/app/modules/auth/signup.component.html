@@ -2,7 +2,7 @@
   <span *ngIf="loading" class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
   <div class="mb-2">
     <h3>Sign up</h3>
-    <p>Sign up with {{ appName }} by creating a free account.</p>
+    <p>Sign up with {{ appName || 'Yuforium' }} by creating a free account.</p>
   </div>
 
   <div class="alert alert-error" *ngIf="displayError">

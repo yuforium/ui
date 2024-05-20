@@ -158,6 +158,21 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "tunnel": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "serviceWorker": false,
+              "fileReplacements": [
+                {
+                  "replace": "projects/test-app/src/environments/environment.ts",
+                  "with": "projects/test-app/src/environments/environment.tunnel.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -171,6 +186,9 @@
             "development": {
               "disableHostCheck": false,
               "buildTarget": "test-app:build:development"
+            },
+            "tunnel": {
+              "buildTarget": "test-app:build:tunnel"
             }
           },
           "defaultConfiguration": "development"

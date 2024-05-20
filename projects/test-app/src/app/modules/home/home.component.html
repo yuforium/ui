@@ -1,13 +1,27 @@
 <!-- <p class="my-2">Rethink social networks. <a routerLink="/login">Login</a> or <a routerLink="/signup">Sign Up</a>.</p> -->
-
-<div class="alert mb-4 hidden md:flex">
-  <div><b>{{ env.appName }}</b> is an open source community platform based on ActivityPub.  <a *ngIf="false" [routerLink]="['about']">Learn more</a></div>
+<div class="y-columns">
+  <main role="main">
+    <p>
+      <b>{{ env.appName ? 'Yuforium' : 'Yuforium' }}</b> is a community platform powered by the ActivityPub protocol enabling you to interact with the Fediverse.
+    </p>
+  </main>
+  <aside>
+    <div class="mb-4">
+      <b class="text-sm mb-2 pl-2 block">Yuforium</b>
+      <ul class="menu bg-base-200 rounded-box">
+        <li><a [routerLink]="['/signup']">Signup</a></li>
+        <li><a href="https://github.com/yuforium" target="_new">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="mb-4">
+      <b class="text-sm mb-2 pl-2 block">Popular</b>
+      <ul class="menu bg-base-200 rounded-box">
+        <li><a>About</a></li>
+        <li><a>GitHub</a></li>
+      </ul>
+    </div>
+  </aside>
 </div>
-
-<div>
-Visit us on <a href="https://github.com/yuforium">GitHub</a>.
-</div>
-<div>Visit <a [routerLink]="['/', 'f', 'scratch']">Scratch board</a></div>
 
 <!-- <div>
   <h3 class="mb-2">News &amp; Updates</h3>
