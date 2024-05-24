@@ -43,6 +43,10 @@ export class AppService {
     const tlds = ['.local', '.com', '.net', '.org', '.dev'];
     let name = window.location.hostname;
 
+    if (name === 'localhost') {
+      return 'localhost:3000';
+    }
+
     for (const tld of tlds) {
       if (name.endsWith(tld)) {
         name = name.substring(0, name.length - tld.length);

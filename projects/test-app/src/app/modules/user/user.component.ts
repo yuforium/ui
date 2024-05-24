@@ -7,6 +7,7 @@ import {
 import { UserService } from "projects/ui-common/src/lib/api/api/user.service";
 import { PersonDto } from "projects/ui-common/src/lib/api/model/personDto";
 import { Observable, map, shareReplay, switchMap } from "rxjs";
+import { AppService } from "../../app.service";
 
 @Component({
   selector: "app-user",
@@ -15,22 +16,41 @@ import { Observable, map, shareReplay, switchMap } from "rxjs";
 })
 export class UserComponent implements OnInit {
   public username: string = "";
+  public handle: string = "";
   public person: PersonDto | null = null;
   public activity: any[] = [];
   public posts$: Observable<any> | undefined;
   public skip: number = 0;
   public limit: number = 10;
+  public isPosting = false;
+  public userId: any;
+  public canPost = false;
 
   constructor(
     private route: ActivatedRoute,
     protected userService: UserService,
     protected activityPubService: ActivityPubService,
+    protected appService: AppService,
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: any) => {
-      this.username = params.username;
+    this.route.data.subscribe(({user}) => {
+      this.username = user.preferredUsername;
       this.loadContent();
+    });
+
+    // this.route.params.subscribe((params: any) => {
+    //   this.username = params.username;
+    //   this.loadContent();
+    // });
+
+    this.appService.$user.subscribe((user) => {
+      if (user?.preferredUsername === this.username) {
+        this.canPost = true;
+      }
+      else {
+        this.canPost = false;
+      }
     });
   }
 
@@ -38,6 +58,8 @@ export class UserComponent implements OnInit {
     this.posts$ = this.userService.get(this.username).pipe(
       switchMap((response) => {
         this.person = response;
+        const url = new URL(response.id);
+        this.handle = `@${response.preferredUsername}@${url.hostname}`;
         return this.userService.getContent(this.username, {
           type: "Note",
           skip: this.skip,
@@ -79,7 +101,8 @@ export class UserComponent implements OnInit {
 
     this.activityPubService
       .postUserOutbox(this.username, data)
-      .subscribe((response) => {
+      .subscribe((_response) => {
+        this.isPosting = false;
         this.loadContent();
       });
   }

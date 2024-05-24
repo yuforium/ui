@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppService } from './app.service';
-import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 import { PersonDto } from 'projects/ui-common/src/lib/api';
@@ -26,5 +25,12 @@ export class AppComponent {
   public logout(): void {
     this.appService.logout();
     this.router.navigate(['/']);
+  }
+
+  blurActiveElement() {
+    const el = document.activeElement;
+    if ((el as any)?.blur) {
+      (el as any).blur();
+    }
   }
 }

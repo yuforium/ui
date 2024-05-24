@@ -38,14 +38,14 @@ input::placeholder {
 }
 
 div.y-columns {
-  @apply  flex flex-row flex-wrap py-4;
+  @apply  flex flex-row flex-wrap;
 }
 
 /* standard column layouts */
 div.y-columns > main {
-  @apply w-full sm:w-3/4 md:w-4/5 pt-1 px-4 mb-8;
+  @apply w-full sm:w-3/4 md:w-4/5 pt-1 mb-8;
 }
 
 div.y-columns > aside {
-  @apply w-full sm:w-1/4 md:w-1/5 pr-4 px-4 sm:px-0;
+  @apply w-full sm:w-1/4 md:w-1/5 pr-4 sm:px-0;
 }

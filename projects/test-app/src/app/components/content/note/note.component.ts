@@ -11,6 +11,7 @@ import { ObjectDto, ObjectDtoAttributedTo } from "projects/ui-common/src/lib/api
 })
 export class NoteComponent {
   @Input() public post!: any;
+  @Input() public displayAuthor: boolean = true;
 
   isArray(value: any): boolean {
     return Array.isArray(value);

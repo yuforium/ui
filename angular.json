@@ -188,7 +188,8 @@
               "buildTarget": "test-app:build:development"
             },
             "tunnel": {
-              "buildTarget": "test-app:build:tunnel"
+              "buildTarget": "test-app:build:tunnel",
+              "disableHostCheck": true
             }
           },
           "defaultConfiguration": "development"
