@@ -1,6 +1,7 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ObjectDto, ObjectDtoAttributedTo } from "projects/ui-common/src/lib/api";
+import { ActivityPubService, NoteCreateDto, ObjectDtoAttributedTo } from "projects/ui-common/src/lib/api";
+import { AppService } from "../../../app.service";
 
 @Component({
   selector: "app-note",
@@ -12,6 +13,10 @@ import { ObjectDto, ObjectDtoAttributedTo } from "projects/ui-common/src/lib/api
 export class NoteComponent {
   @Input() public post!: any;
   @Input() public displayAuthor: boolean = true;
+
+  public isPosting = false;
+
+  constructor(protected appService: AppService, protected activityPubService: ActivityPubService) { }
 
   isArray(value: any): boolean {
     return Array.isArray(value);
@@ -43,5 +48,28 @@ export class NoteComponent {
     }
 
     return undefined;
+  }
+
+  postReply(replyText: string) {
+    const attributedTo = this.post.attributedTo;
+
+    const data: NoteCreateDto = {
+      type: "Note",
+      content: replyText,
+      inReplyTo: this.post.id,
+      to: Array.isArray(attributedTo) || typeof attributedTo === 'string' ? attributedTo : attributedTo.id
+    }
+
+    data.to = Array.isArray(data.to) ? data.to : [data.to];
+    data.to.push('https://www.w3.org/ns/activitystreams#Public');
+
+    const user = this.appService.$user.getValue();
+
+    if (user) {
+      this.activityPubService.postUserOutbox(user.preferredUsername, data)
+        .subscribe((response) => {});
+    }
+
+    this.isPosting = false;
   }
 }

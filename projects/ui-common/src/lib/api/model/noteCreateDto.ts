@@ -19,6 +19,7 @@ export interface NoteCreateDto {
     name?: NoteCreateDtoName;
     to: NoteCreateDtoName;
     attributedTo?: NoteCreateDtoName;
+    inReplyTo?: string;
 }
 export namespace NoteCreateDto {
     export type TypeEnum = 'Note';

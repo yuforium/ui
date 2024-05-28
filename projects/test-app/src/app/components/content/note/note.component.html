@@ -33,13 +33,22 @@
           &bullet;
         </ng-container>
         {{ post.published | date }}
-      </h4>
-      <h3 class="text" *ngIf="post.name">{{ post.name }}</h3>
-      <div class="mt-2" [innerHTML]="post.content"></div>
-      <div class="mt-2 text-sm">
-        0 Comments
-    <a class="btn btn-sm">
-      Reply
-    </a>
+    </h4>
+    <h3 class="text" *ngIf="post.name">{{ post.name }}</h3>
+    <div class="mt-2" [innerHTML]="post.content"></div>
+    <div class="mt-2 text-sm">
+      0 Replies
+      <button class="btn btn-sm mr-2" (click)="isPosting = true">Reply</button>
+      <a class="btn btn-sm mr-2">Edit</a>
+      <a class="btn btn-sm mr-2">Delete</a>
+    </div>
+    <div *ngIf="isPosting">
+      <div class="mt-2">
+        <textarea #replyText class="form-textarea block w-full" rows="3" placeholder="Reply to this note"></textarea>
+      </div>
+      <div class="mt-2">
+        <button class="btn btn-sm mr-2" (click)="isPosting = false">Cancel</button>
+        <button class="btn btn-sm btn-primary" (click)="postReply(replyText.value)">Post</button>
+      </div>
   </div>
 </div>
