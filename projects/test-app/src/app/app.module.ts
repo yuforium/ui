@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,19 +23,12 @@ const apiConfigFactory = (): Configuration => {
   return new Configuration(params);
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    AboutComponent
-  ],
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    ApiModule.forRoot(apiConfigFactory),
-    HttpClientModule,
-    FormsModule
-  ],
-  providers: [AppService],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        AboutComponent
+    ],
+    bootstrap: [AppComponent], imports: [AppRoutingModule,
+        BrowserModule,
+        ApiModule.forRoot(apiConfigFactory),
+        FormsModule], providers: [AppService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

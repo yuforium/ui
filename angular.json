@@ -15,12 +15,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/web",
+            "outputPath": {
+              "base": "dist/web"
+            },
             "index": "projects/web/src/index.html",
-            "main": "projects/web/src/main.ts",
-            "polyfills": "projects/web/src/polyfills.ts",
+            "polyfills": [
+              "projects/web/src/polyfills.ts"
+            ],
             "tsConfig": "projects/web/tsconfig.app.json",
             "assets": [
               "projects/web/src/favicon.ico",
@@ -29,7 +32,8 @@
             "styles": [
               "projects/web/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/web/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -54,9 +58,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -113,12 +115,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/test-app",
+            "outputPath": {
+              "base": "dist/test-app"
+            },
             "index": "projects/test-app/src/index.html",
-            "main": "projects/test-app/src/main.ts",
-            "polyfills": "projects/test-app/src/polyfills.ts",
+            "polyfills": [
+              "projects/test-app/src/polyfills.ts"
+            ],
             "tsConfig": "projects/test-app/tsconfig.app.json",
             "assets": [
               "projects/test-app/src/favicon.ico",
@@ -127,7 +132,8 @@
             "styles": [
               "projects/test-app/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/test-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -152,17 +158,13 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
             },
             "tunnel": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
