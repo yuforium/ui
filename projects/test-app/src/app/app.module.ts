@@ -23,12 +23,21 @@ const apiConfigFactory = (): Configuration => {
   return new Configuration(params);
 }
 
-@NgModule({ declarations: [
-        AppComponent,
-        AboutComponent
-    ],
-    bootstrap: [AppComponent], imports: [AppRoutingModule,
-        BrowserModule,
-        ApiModule.forRoot(apiConfigFactory),
-        FormsModule], providers: [AppService, provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    AboutComponent
+  ],
+  bootstrap: [AppComponent],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    ApiModule.forRoot(apiConfigFactory),
+    FormsModule
+  ],
+  providers: [
+    AppService,
+    provideHttpClient(withInterceptorsFromDi())
+  ]}
+)
 export class AppModule { }

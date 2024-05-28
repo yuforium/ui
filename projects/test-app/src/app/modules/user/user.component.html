@@ -12,18 +12,22 @@
     </div>
 
     <div *ngIf="isPosting" class="card bg-base-200 shadow-md mb-4">
-      <div class="card-body p-4">
+      <div class="card-body p-2 sm:p-4">
         <div class="mb-3">
           <label for="addressee" class="block text-sm font-medium text-gray-700">Addressee</label>
           <input name="addressee" #addressee class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2" placeholder="#Public">
         </div>
         <div class="mb-3">
           <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
-          <textarea name="content" #postbox rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Enter your message here"></textarea>
+          <textarea name="content" #postbox rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md hidden" placeholder="Enter your message here"></textarea>
+          <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+            <ngx-editor [editor]="editor" [(ngModel)]="html" [placeholder]="'Type here...'"></ngx-editor>
+          </div>
         </div>
         <div class="card-actions justify-end">
           <button class="btn btn-outline" (click)="isPosting = false">Cancel</button>
-          <button class="btn btn-primary" (click)="postMessage(postbox.value, addressee.value)">Post</button>
+          <button class="btn btn-primary" (click)="postMessage(addressee.value)">Post</button>
         </div>
       </div>
     </div>

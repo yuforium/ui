@@ -1,20 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import {
-  ActivityPubService,
-  NoteCreateDto,
+  ActivityPubService, NoteCreateDto
 } from "projects/ui-common/src/lib/api";
 import { UserService } from "projects/ui-common/src/lib/api/api/user.service";
 import { PersonDto } from "projects/ui-common/src/lib/api/model/personDto";
 import { Observable, map, shareReplay, switchMap } from "rxjs";
 import { AppService } from "../../app.service";
+import { Editor } from "ngx-editor";
 
 @Component({
   selector: "app-user",
   templateUrl: "./user.component.html",
   styleUrls: ["./user.component.css"],
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   public username: string = "";
   public handle: string = "";
   public person: PersonDto | null = null;
@@ -25,6 +25,8 @@ export class UserComponent implements OnInit {
   public isPosting = false;
   public userId: any;
   public canPost = false;
+  public editor!: Editor;
+  public html = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +36,8 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.editor = new Editor();
+
     this.route.data.subscribe(({user}) => {
       this.username = user.preferredUsername;
       this.loadContent();
@@ -52,6 +56,10 @@ export class UserComponent implements OnInit {
         this.canPost = false;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   loadContent() {
@@ -76,7 +84,7 @@ export class UserComponent implements OnInit {
     return Array.isArray(value);
   }
 
-  postMessage(message: string, addressee?: string) {
+  postMessage(addressee?: string) {
     /**
      * if to is not set, use followers link as "to:' field
      *
@@ -94,14 +102,15 @@ export class UserComponent implements OnInit {
 
     const data: NoteCreateDto = {
       type: "Note",
-      content: message,
+      content: this.html,
       to: to,
-      attributedTo: "", // populated by server
+      attributedTo: "", // populated by server, this could be an option in the future (e.g. posting as another user)
     };
 
     this.activityPubService
       .postUserOutbox(this.username, data)
       .subscribe((_response) => {
+        this.html = '';
         this.isPosting = false;
         this.loadContent();
       });
