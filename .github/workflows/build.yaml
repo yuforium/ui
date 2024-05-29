@@ -21,4 +21,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: yuforium/ui:latest
+          tags: yuforium/ui:latest, yuforium/ui:${{ github.sha }}
