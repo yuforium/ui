@@ -67,7 +67,9 @@ export class NoteComponent {
 
     if (user) {
       this.activityPubService.postUserOutbox(user.preferredUsername, data)
-        .subscribe((response) => {});
+        .subscribe((_response) => {
+          this.isPosting = false;
+        });
     }
 
     this.isPosting = false;
