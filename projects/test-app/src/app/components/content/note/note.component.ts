@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ActivityPubService, NoteCreateDto, ObjectDtoAttributedTo } from "projects/ui-common/src/lib/api";
+import { NoteCreateDto, ObjectDtoAttributedTo, UserService } from "projects/ui-common/src/lib/api";
 import { AppService } from "../../../app.service";
 
 @Component({
@@ -16,7 +16,7 @@ export class NoteComponent {
 
   public isPosting = false;
 
-  constructor(protected appService: AppService, protected activityPubService: ActivityPubService) { }
+  constructor(protected appService: AppService, protected userService: UserService) { }
 
   isArray(value: any): boolean {
     return Array.isArray(value);
@@ -63,10 +63,10 @@ export class NoteComponent {
     data.to = Array.isArray(data.to) ? data.to : [data.to];
     data.to.push('https://www.w3.org/ns/activitystreams#Public');
 
-    const user = this.appService.$user.getValue();
+    const user = this.appService.user$.getValue();
 
     if (user) {
-      this.activityPubService.postUserOutbox(user.preferredUsername, data)
+      this.userService.postUserOutbox(user.preferredUsername, data)
         .subscribe((_response) => {
           this.isPosting = false;
         });

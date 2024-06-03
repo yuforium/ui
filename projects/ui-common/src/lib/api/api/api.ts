@@ -1,5 +1,3 @@
-export * from './activityPub.service';
-import { ActivityPubService } from './activityPub.service';
 export * from './app.service';
 import { AppService } from './app.service';
 export * from './auth.service';
@@ -10,4 +8,4 @@ export * from './forum.service';
 import { ForumService } from './forum.service';
 export * from './user.service';
 import { UserService } from './user.service';
-export const APIS = [ActivityPubService, AppService, AuthService, DefaultService, ForumService, UserService];
+export const APIS = [AppService, AuthService, DefaultService, ForumService, UserService];

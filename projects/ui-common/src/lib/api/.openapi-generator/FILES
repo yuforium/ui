@@ -1,7 +1,6 @@
 .gitignore
 README.md
 api.module.ts
-api/activityPub.service.ts
 api/api.ts
 api/app.service.ts
 api/auth.service.ts
@@ -12,6 +11,9 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/actorDto.ts
+model/actorDtoContext.ts
+model/actorDtoType.ts
 model/contentQueryOptionsDto.ts
 model/forumCreateDto.ts
 model/loginDto.ts

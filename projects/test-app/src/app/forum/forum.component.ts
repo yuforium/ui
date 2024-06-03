@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ForumService } from 'projects/ui-common/src/lib/api';
+import { ActorDto, ForumService, PersonDto } from 'projects/ui-common/src/lib/api';
+import { BehaviorSubject } from 'rxjs';
+import { ActorHeaderComponent } from '../components/content/actor-header/actor-header.component';
 
 @Component({
   selector: 'app-forum',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ActorHeaderComponent],
   templateUrl: './forum.component.html',
   styleUrls: ['./forum.component.css']
 })
 export class ForumComponent implements OnInit {
-  forum: any;
+  forum: ActorDto | null = null;
+  public readonly forum$ = new BehaviorSubject<ActorDto | PersonDto | null>(null);
 
   constructor(
     protected route: ActivatedRoute,
@@ -19,16 +22,11 @@ export class ForumComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.forumService.getForum(params['forumId']).subscribe(forum => {
-        this.forum = forum;
-      });
+    this.route.data.subscribe(data => {
+      this.forum$.next(data['forum']);
     });
   }
 
   loadForum() {
-    this.forumService.getForum(this.forum.id).subscribe(forum => {
-      this.forum = forum;
-    });
   }
 }

@@ -5,6 +5,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { NoteComponent } from '../../components/content/note/note.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { FormsModule } from '@angular/forms';
+import { ActorHeaderComponent } from '../../components/content/actor-header/actor-header.component';
 
 
 
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     UserRoutingModule,
     NoteComponent,
     NgxEditorModule,
-    FormsModule
+    FormsModule,
+    ActorHeaderComponent
   ]
 })
 export class UserModule { }

@@ -9,11 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ObjectDto } from './objectDto';
 
 
-export interface OrderedCollectionPageDto { 
-    totalItems: number;
-    items: Array<ObjectDto>;
-}
+/**
+ * The type of the actor, multiple supported
+ */
+/**
+ * @type ActorDtoType
+ * The type of the actor, multiple supported
+ * @export
+ */
+export type ActorDtoType = Array<string> | string;
 

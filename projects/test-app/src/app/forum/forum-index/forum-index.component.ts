@@ -26,18 +26,18 @@ export class ForumIndexComponent {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: any) => {
-      this.posts$ = this.forumService.getForumContent(params['forumId'])
-        .pipe(
-          map(response => response.items)
-        );
-    });
+    // this.route.params.subscribe((params: any) => {
+    //   this.posts$ = this.forumService.getForumContent(params['forumId'])
+    //     .pipe(
+    //       map(response => response.items)
+    //     );
+    // });
   }
 
   loadContent() {
-    this.posts$ = this.forumService.getForumContent(this.forumname)
-      .pipe(
-        map(response => response.items)
-      )
+    // this.posts$ = this.forumService.getForumContent(this.forumname)
+    //   .pipe(
+    //     map(response => response.items)
+    //   )
   }
 }

@@ -1,3 +1,6 @@
+export * from './actorDto';
+export * from './actorDtoContext';
+export * from './actorDtoType';
 export * from './contentQueryOptionsDto';
 export * from './forumCreateDto';
 export * from './loginDto';

@@ -1,0 +1,7 @@
+<div class="mb-4 relative" *ngIf="actor$ | async; let actor">
+  <h1 class="text-2xl">{{ actor?.name || actor?.preferredUsername }}</h1>
+  <div class="mb-1">{{ handle }}</div>
+  <p *ngIf="actor.summary">{{ actor.summary }}</p>
+
+  <ng-content></ng-content>
+</div>

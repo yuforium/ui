@@ -19,7 +19,7 @@ export class AppComponent {
   constructor(readonly appService: AppService, readonly titleService: Title, protected router: Router) {
     this.title = appService.title;
     this.titleService.setTitle(this.title);
-    this.$user = this.appService.$user;
+    this.$user = this.appService.user$;
   }
 
   public logout(): void {

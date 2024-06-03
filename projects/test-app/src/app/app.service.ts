@@ -12,7 +12,7 @@ export interface StoredApiToken {
   providedIn: 'root'
 })
 export class AppService {
-  public readonly $user = new BehaviorSubject<PersonDto | null>(null);
+  public readonly user$ = new BehaviorSubject<PersonDto | null>(null);
   protected storedApiToken: StoredApiToken | null = null;
   protected _profile: PersonDto | null = null;
 
@@ -32,7 +32,7 @@ export class AppService {
         this.storedApiToken = storedApiToken;
         this.config.credentials['bearer'] = storedApiToken.accessToken;
         this.authService.profile().subscribe((profile: PersonDto) => {
-          this.$user.next(profile);
+          this.user$.next(profile);
           this._profile = profile;
         });
       }
@@ -127,7 +127,7 @@ export class AppService {
           return this.authService.profile();
         }),
         map((profile: PersonDto) => {
-          this.$user.next(profile);
+          this.user$.next(profile);
           return profile;
         })
       );
@@ -137,6 +137,6 @@ export class AppService {
     this.storedApiToken = null;
     localStorage.removeItem('apiToken');
     this.config.credentials['bearer'] = () => undefined;
-    this.$user.next(null);
+    this.user$.next(null);
   }
 }

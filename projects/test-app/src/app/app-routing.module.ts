@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './components/page/page-not-found/page-not-found.component';
+import { InternalServerErrorComponent } from './components/page/internal-server-error/internal-server-error.component';
 
 const routes: Routes = [
   {
@@ -15,17 +16,13 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
   },
-  // {
-  //   path: 'forum',
-  //   loadChildren: () => import('./modules/forum/forum.module').then(m => m.ForumModule),
-  // },
-  {
-    path: 'f',
-    loadChildren: () => import('./forum/forum.routes').then(m => m.FORUM_ROUTES),
-  },
   {
     path: 'forums',
     loadChildren: () => import('./forum/forum.routes').then(m => m.FORUM_ROUTES)
+  },
+  {
+    path: '500',
+    component: InternalServerErrorComponent
   },
   {
     path: '**',

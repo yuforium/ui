@@ -1,9 +1,9 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService, UserCreateDto, UserService } from 'projects/ui-common/src/lib/api';
-import { map, Observable, subscribeOn } from 'rxjs';
+import { UserCreateDto, UserService } from 'projects/ui-common/src/lib/api';
+import { map, Observable } from 'rxjs';
 import { AppService } from '../../app.service';
 import { environment } from 'projects/test-app/src/environments/environment';
 
@@ -71,7 +71,7 @@ export class SignupComponent implements OnInit {
 
     this.loading = true;
 
-    this.userService.create({username, password, email}).subscribe({
+    this.userService.createUser({username, password, email}).subscribe({
       next: response => this.onSignup(response),
       error: response => this.onSignupError(response)
     }).add(() => this.loading = false);
