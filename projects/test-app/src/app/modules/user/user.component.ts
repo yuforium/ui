@@ -4,7 +4,7 @@ import { ActorDto, NoteCreateDto } from "projects/ui-common/src/lib/api";
 import { UserService } from "projects/ui-common/src/lib/api/api/user.service";
 import { PersonDto } from "projects/ui-common/src/lib/api/model/personDto";
 import { BehaviorSubject, Observable, catchError, map, shareReplay } from "rxjs";
-import { AppService } from "../../app.service";
+import { AppService, Page } from "../../app.service";
 import { Editor } from "ngx-editor";
 
 @Component({
@@ -31,13 +31,14 @@ export class UserComponent implements OnInit, OnDestroy {
     '=1': "1 post",
     other: "# posts"
   }
-  public pagination: {current: boolean, page: number}[] = [];
+  public pagination: Page[] = [];
+  public currentPage: number = 0;
 
   constructor(
     private route: ActivatedRoute,
     protected userService: UserService,
     protected appService: AppService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.editor = new Editor();
@@ -66,24 +67,27 @@ export class UserComponent implements OnInit, OnDestroy {
     this.editor.destroy();
   }
 
-  loadContent() {
+  loadContent(pageNumber: number = 0) {
     const username = this.user$.getValue()?.preferredUsername;
 
     if (!username) {
       return;
     }
 
-    console.log('no loading?');
-
     this.isLoading = true;
     this.posts$ = this.userService.getContent(username, {
       type: "Note",
-      skip: this.skip,
+      skip: pageNumber * this.limit,
       limit: this.limit,
       sort: "-published",
     }).pipe(
       map(response => {
+        this.currentPage = pageNumber;
         this.totalItems = response.totalItems;
+        console.log(this.totalItems, this.limit);
+        const totalPages = Math.floor(this.totalItems / this.limit) + 1;
+        console.log(totalPages);
+        this.pagination = this.appService.generatePages(totalPages, this.currentPage);
         this.isLoadingError = false;
         return response.items;
       }),

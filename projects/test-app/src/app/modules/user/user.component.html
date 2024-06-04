@@ -8,15 +8,11 @@
           @if (isLoadingError) {
             Error loading posts <a class="btn btn-sm ml-4" (click)="loadContent()">Retry</a>
           }
-          @else if (isLoading === true) {
-            <span>Loading</span>
-          }
           @else {
             <div class="join">
-              <button class="join-item btn btn-sm">1</button>
-              <button class="join-item btn btn-sm btn-active">2</button>
-              <button class="join-item btn btn-sm">3</button>
-              <button class="join-item btn btn-sm">4</button>
+              <button *ngFor="let page of pagination" class="join-item btn btn-sm" [class.btn-active]="page.page === currentPage" (click)="loadContent(page.page)">
+                {{ page.title }}
+              </button>
             </div>
             <span class="ml-4 text-sm font-bold">{{ totalItems | i18nPlural : totalItemsMap }}</span>
           }
@@ -57,17 +53,9 @@
         <span>Loading failed</span>
       </div>
     }
-    @else if (!isLoading) {
+    @else {
       <div *ngFor="let post of posts$ | async" class="mb-3">
         <app-note [post]="post" [displayAuthor]="false"></app-note>
-      </div>
-    }
-    @else {
-      <div class="flex flex-col gap-4 w-52">
-        <div class="skeleton h-32 w-full"></div>
-        <div class="skeleton h-4 w-28"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-full"></div>
       </div>
     }
     </div>
