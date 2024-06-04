@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ActorDto, NoteCreateDto } from "projects/ui-common/src/lib/api";
 import { UserService } from "projects/ui-common/src/lib/api/api/user.service";
 import { PersonDto } from "projects/ui-common/src/lib/api/model/personDto";
-import { BehaviorSubject, Observable, map, shareReplay } from "rxjs";
+import { BehaviorSubject, Observable, catchError, map, shareReplay } from "rxjs";
 import { AppService } from "../../app.service";
 import { Editor } from "ngx-editor";
 
@@ -20,7 +20,8 @@ export class UserComponent implements OnInit, OnDestroy {
   public skip: number = 0;
   public limit: number = 10;
   public isPosting = false;
-  public isLoading = false;
+  public isLoading: boolean = false;
+  public isLoadingError: boolean = false;
   public canPost = false;
   public editor!: Editor;
   public html = '';
@@ -72,6 +73,8 @@ export class UserComponent implements OnInit, OnDestroy {
       return;
     }
 
+    console.log('no loading?');
+
     this.isLoading = true;
     this.posts$ = this.userService.getContent(username, {
       type: "Note",
@@ -81,11 +84,19 @@ export class UserComponent implements OnInit, OnDestroy {
     }).pipe(
       map(response => {
         this.totalItems = response.totalItems;
-        this.isLoading = false;
+        this.isLoadingError = false;
         return response.items;
       }),
       shareReplay(),
+      catchError(() => {
+        this.isLoadingError = true;
+        return [];
+      })
     );
+
+    this.posts$.subscribe(() => {
+      this.isLoading = false;
+    });
   }
 
   isArray(value: any): boolean {
