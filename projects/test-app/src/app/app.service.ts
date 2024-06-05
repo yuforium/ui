@@ -174,7 +174,6 @@ export class AppService {
       .map(k => parseInt(k, 10))
       .sort((a, b) => a - b)
       .reduce<(number | null)[]>((acc, curr, idx, a) => {
-        console.log(`push ${curr}`);
         acc.push(curr);
         if (idx < a.length - 1 && curr + 1 !== a[idx + 1]) {
           console.log(`push null`);

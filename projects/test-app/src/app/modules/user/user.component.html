@@ -9,17 +9,19 @@
             Error loading posts <a class="btn btn-sm ml-4" (click)="loadContent()">Retry</a>
           }
           @else {
-            <div class="join">
-              @for (page of pagination; track page) {
-                @if (page) {
-                  <button class="join-item btn btn-sm" [class.btn-active]="page === currentPage + 1" (click)="loadContent(page - 1)" [innerHTML]="page"></button>
+            @if (pagination.length > 1) {
+              <div class="join mr-4">
+                @for (page of pagination; track page) {
+                  @if (page) {
+                    <button class="join-item btn btn-sm" [class.btn-active]="page === currentPage + 1" (click)="loadContent(page - 1)" [innerHTML]="page"></button>
+                  }
+                  @else {
+                    <button class="join-item btn btn-sm btn-disabled">&hellip;</button>
+                  }
                 }
-                @else {
-                  <button class="join-item btn btn-sm btn-disabled">&hellip;</button>
-                }
-              }
-            </div>
-            <span class="ml-4 text-sm font-bold">{{ totalItems | i18nPlural : totalItemsMap }}</span>
+              </div>
+            }
+            <span class="text-sm font-bold">{{ totalItems | i18nPlural : totalItemsMap }}</span>
           }
         </div>
         <div class="flex-none">
