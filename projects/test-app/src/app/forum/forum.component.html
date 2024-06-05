@@ -1,10 +1,15 @@
-<app-actor-header [actor]="forum$">
+<div>
+  <main role="main">
+    <app-actor-header [actor]="forum$"> </app-actor-header>
+    <app-actor-toolbar [actor]="forum$"> </app-actor-toolbar>
 
-</app-actor-header>
+    <div class="relative mb-4">
+      <h3>
+        <a [routerLink]="['/', 'f', 'scratch']">{{ forum?.name }}</a>
+      </h3>
+      <p>{{ forum?.summary }}</p>
+    </div>
 
-<div class="relative mb-4">
-  <h3><a [routerLink]="['/', 'f', 'scratch']">{{ forum?.name }}</a></h3>
-  <p>{{ forum?.summary }}</p>
+    <router-outlet></router-outlet>
+  </main>
 </div>
-
-<router-outlet></router-outlet>

@@ -12,12 +12,6 @@ export interface StoredApiToken {
   expiresAt: Date;
 }
 
-export interface Page {
-  page?: number;
-  title: string;
-  current?: boolean;
-}
-
 @Injectable({
   providedIn: "root",
 })
@@ -157,61 +151,36 @@ export class AppService {
     this.user$.next(null);
   }
 
-  generatePages(
-    totalPages: number,
-    currentPage: number,
-    pageRange: number = 2,
-    edgeRange: number = 1,
-  ): Page[] {
-    let pages: Page[] = [];
-
-    const createPage = (page: number, isCurrent: boolean = false): Page => ({
-      page,
-      title: (page + 1).toString(),
-      current: isCurrent,
-    });
-
-    const addBreak = (): Page => ({
-      title: "...",
-    });
-
-    const addPages = (start: number, end: number) => {
-      for (let i = start; i < end; i++) {
-        pages.push(createPage(i, i === currentPage));
-      }
-    };
-
-    if (totalPages <= 1) {
-      // Handle the case where there is only one page
-      pages.push(createPage(0, currentPage === 0));
-      return pages;
+  generatePagination(totalPages: number, currentPage: number, pageRange: number = 1, edgeRange: number = 1): (number | null)[] {
+    if (totalPages < currentPage) {
+      throw new Error("currentPage cannot be greater than totalPages");
     }
 
-    // Add initial edge pages
-    addPages(0, Math.min(edgeRange, totalPages));
+    let pages: {[k: string]: boolean} = {};
 
-    // Add break if needed
-    if (edgeRange < totalPages - pageRange - 1) {
-      pages.push(addBreak());
+    for (let i = 1; i <= Math.min(edgeRange, totalPages); i++) {
+      pages[i.toString()] = true;
     }
 
-    // Add range around current page
-    const startPage = Math.max(edgeRange, currentPage - pageRange);
-    const endPage = Math.min(
-      totalPages - edgeRange,
-      currentPage + pageRange + 1,
-    );
-
-    addPages(startPage, endPage);
-
-    // Add break if needed
-    if (endPage < totalPages - edgeRange) {
-      pages.push(addBreak());
+    for (let i = totalPages; i >= Math.max(1, totalPages - edgeRange + 1); i--) {
+      pages[i.toString()] = true;
     }
 
-    // Add final edge pages
-    addPages(Math.max(totalPages - edgeRange, endPage), totalPages);
+    for (let i = Math.max(1, currentPage - pageRange); i <= Math.min(totalPages, currentPage + pageRange); i++) {
+      pages[i.toString()] = true;
+    }
 
-    return pages;
+    return Object.keys(pages)
+      .map(k => parseInt(k, 10))
+      .sort((a, b) => a - b)
+      .reduce<(number | null)[]>((acc, curr, idx, a) => {
+        console.log(`push ${curr}`);
+        acc.push(curr);
+        if (idx < a.length - 1 && curr + 1 !== a[idx + 1]) {
+          console.log(`push null`);
+          acc.push(null);
+        }
+        return acc;
+      }, []);
   }
 }

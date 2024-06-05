@@ -4,7 +4,7 @@ import { ActorDto, NoteCreateDto } from "projects/ui-common/src/lib/api";
 import { UserService } from "projects/ui-common/src/lib/api/api/user.service";
 import { PersonDto } from "projects/ui-common/src/lib/api/model/personDto";
 import { BehaviorSubject, Observable, catchError, map, shareReplay } from "rxjs";
-import { AppService, Page } from "../../app.service";
+import { AppService } from "../../app.service";
 import { Editor } from "ngx-editor";
 
 @Component({
@@ -31,7 +31,7 @@ export class UserComponent implements OnInit, OnDestroy {
     '=1': "1 post",
     other: "# posts"
   }
-  public pagination: Page[] = [];
+  public pagination: (number | null)[] = [];
   public currentPage: number = 0;
 
   constructor(
@@ -45,7 +45,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
     this.route.data.subscribe(({user}) => {
       this.user$.next(user);
-      this.loadContent();
+      this.loadContent(this.currentPage);
     });
 
     // this.route.params.subscribe((params: any) => {
@@ -85,7 +85,7 @@ export class UserComponent implements OnInit, OnDestroy {
         this.currentPage = pageNumber;
         this.totalItems = response.totalItems;
         const totalPages = this.totalItems % this.limit === 0 ? this.totalItems / this.limit : Math.floor(this.totalItems / this.limit) + 1;
-        this.pagination = this.appService.generatePages(totalPages, this.currentPage);
+        this.pagination = this.appService.generatePagination(totalPages, this.currentPage + 1);
         this.isLoadingError = false;
         return response.items;
       }),

@@ -10,9 +10,14 @@
           }
           @else {
             <div class="join">
-              <button *ngFor="let page of pagination" class="join-item btn btn-sm" [class.btn-active]="page.page === currentPage" (click)="loadContent(page.page)">
-                {{ page.title }}
-              </button>
+              @for (page of pagination; track page) {
+                @if (page) {
+                  <button class="join-item btn btn-sm" [class.btn-active]="page === currentPage + 1" (click)="loadContent(page - 1)" [innerHTML]="page"></button>
+                }
+                @else {
+                  <button class="join-item btn btn-sm btn-disabled">&hellip;</button>
+                }
+              }
             </div>
             <span class="ml-4 text-sm font-bold">{{ totalItems | i18nPlural : totalItemsMap }}</span>
           }
