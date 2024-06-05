@@ -18,7 +18,7 @@ export class UserComponent implements OnInit, OnDestroy {
   public readonly user$ = new BehaviorSubject<PersonDto | ActorDto | null>(null);
   public posts$: Observable<any> | undefined;
   public skip: number = 0;
-  public limit: number = 10;
+  public limit: number = 16;
   public isPosting = false;
   public isLoading: boolean = false;
   public isLoadingError: boolean = false;
@@ -84,9 +84,7 @@ export class UserComponent implements OnInit, OnDestroy {
       map(response => {
         this.currentPage = pageNumber;
         this.totalItems = response.totalItems;
-        console.log(this.totalItems, this.limit);
-        const totalPages = Math.floor(this.totalItems / this.limit) + 1;
-        console.log(totalPages);
+        const totalPages = this.totalItems % this.limit === 0 ? this.totalItems / this.limit : Math.floor(this.totalItems / this.limit) + 1;
         this.pagination = this.appService.generatePages(totalPages, this.currentPage);
         this.isLoadingError = false;
         return response.items;
