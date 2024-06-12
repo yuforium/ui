@@ -2,8 +2,8 @@
   <main role="main">
     <app-actor-header [actor]="user$"></app-actor-header>
 
-    <div class="mb-4 sticky top-20 bg-base-100 bg-opacity-70">
-      <div class="flex p-2">
+    <div class="sticky top-20 bg-base-100 bg-opacity-70 mb-2 p-2 rounded">
+      <div class="flex">
         <div class="flex flex-grow items-center">
           @if (isLoadingError) {
             Error loading posts <a class="btn btn-sm ml-4" (click)="loadContent()">Retry</a>
@@ -34,9 +34,9 @@
         </div>
       </div>
 
-      <div *ngIf="isPosting" class="card bg-base-200 shadow-md mb-4">
+      <div *ngIf="isPosting" class="card bg-base-200 shadow-md">
         <div class="card-body p-2 sm:p-4">
-          <div class="mb-3">
+          <div class="mb-3 hidden">
             <label for="addressee" class="block text-sm font-medium text-gray-700">Addressee</label>
             <input name="addressee" #addressee class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2" placeholder="#Public">
           </div>
@@ -64,9 +64,9 @@
       </div>
     }
     @else {
-      <div *ngFor="let post of posts$ | async" class="mb-3">
-        <app-note [post]="post" [displayAuthor]="false"></app-note>
-      </div>
+      @for (post of posts$ | async; track $index) {
+        <app-note [post]="post" [excludeAuthors]="(user$ | async)?.id"></app-note>
+      }
     }
     </div>
   </main>

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ForumService } from 'projects/ui-common/src/lib/api';
-import { Observable, map, switchMap } from 'rxjs';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActorDto, ForumService } from 'projects/ui-common/src/lib/api';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { NoteComponent } from '../../components/content/note/note.component';
+import { Editor, NgxEditorModule } from 'ngx-editor';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-forum-index',
@@ -11,21 +13,39 @@ import { NoteComponent } from '../../components/content/note/note.component';
   imports: [
     CommonModule,
     RouterModule,
-    NoteComponent
+    NoteComponent,
+    FormsModule,
+    NgxEditorModule
   ],
   templateUrl: './forum-index.component.html',
   styleUrls: ['./forum-index.component.css']
 })
 export class ForumIndexComponent {
   public forumname: string = '';
+  public forum$: BehaviorSubject<ActorDto | null> = new BehaviorSubject<ActorDto | null>(null);
   public posts$: Observable<any> | undefined;
+  public isPosting: boolean = false;
+  public canPost: boolean = true;
+  public editor = new Editor();
+  public html: string = '';
+  public name: string = '';
 
   constructor(
     private route: ActivatedRoute,
+    protected router: Router,
     protected forumService: ForumService,
   ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: any) => {
+      this.forumname = params['forumname'];
+      this.loadContent();
+    });
+
+    this.route.data.subscribe(data => {
+      this.forum$.next(data['forum']);
+    })
+
     // this.route.params.subscribe((params: any) => {
     //   this.posts$ = this.forumService.getForumContent(params['forumId'])
     //     .pipe(
@@ -34,10 +54,39 @@ export class ForumIndexComponent {
     // });
   }
 
+  /**
+   * Post a message to the forum.
+   */
+  public postMessage(addressee?: string) {
+    const to = addressee || 'https://www.w3.org/ns/activitystreams#Public';
+
+    const data: any = {
+      '@context': 'https://www.w3.org/ns/activitystreams',
+      type: 'Note',
+      to,
+      content: this.html,
+      name: this.name
+    };
+
+    this.forumService.postOutbox(this.forumname, data)
+      .subscribe({
+        next: _response => this.onPostComplete(),
+        error: err => this.onPostError(err)
+      });
+  }
+
+  protected onPostComplete() {
+    this.router.navigate(['..'], {relativeTo: this.route});
+  }
+
+  protected onPostError(err: any) {
+    // handle error
+  }
+
   loadContent() {
-    // this.posts$ = this.forumService.getForumContent(this.forumname)
-    //   .pipe(
-    //     map(response => response.items)
-    //   )
+    this.posts$ = this.forumService.getForumContent(this.forumname)
+      .pipe(
+        map(response => response.items)
+      )
   }
 }

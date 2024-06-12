@@ -7,8 +7,6 @@ import { NgxEditorModule } from 'ngx-editor';
 import { FormsModule } from '@angular/forms';
 import { ActorHeaderComponent } from '../../components/content/actor-header/actor-header.component';
 
-
-
 @NgModule({
   declarations: [
     UserComponent

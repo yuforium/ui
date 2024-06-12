@@ -1,18 +1,20 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { NoteCreateDto, ObjectDtoAttributedTo, UserService } from "projects/ui-common/src/lib/api";
+import { ActorDto, NoteCreateDto, ObjectDtoAttributedTo, UserService } from "projects/ui-common/src/lib/api";
 import { AppService } from "../../../app.service";
+import { IsArrayPipe } from "../../../pipes/is-array.pipe";
 
 @Component({
   selector: "app-note",
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IsArrayPipe],
   templateUrl: "./note.component.html",
   styleUrls: ["./note.component.css"],
 })
 export class NoteComponent {
   @Input() public post!: any;
   @Input() public displayAuthor: boolean = true;
+  @Input() public excludeAuthors?: string | string[];
 
   public isPosting = false;
 
@@ -20,6 +22,18 @@ export class NoteComponent {
 
   isArray(value: any): boolean {
     return Array.isArray(value);
+  }
+
+  public get authors(): ActorDto[] {
+    if (!this.post.attributedTo) {
+      return [];
+    }
+
+    const attributedTo = Array.isArray(this.post.attributedTo) ? this.post.attributedTo : [this.post.attributedTo];
+    const excludeAuthors = this.excludeAuthors ? (Array.isArray(this.excludeAuthors) ? this.excludeAuthors : [this.excludeAuthors]) : [];
+    const excluded = attributedTo.filter((author: ActorDto) => !excludeAuthors.includes(author.id));
+
+    return excluded;
   }
 
   getAuthor(attributedTo: string | string[] | ObjectDtoAttributedTo): string {

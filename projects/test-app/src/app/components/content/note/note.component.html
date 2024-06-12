@@ -1,4 +1,4 @@
-<div class="mb-6">
+<div class="border-t border-base-300 py-2">
   <div>
     <h4 class="text-sm flex items-center">
       <ng-container [ngSwitch]="post.type">
@@ -20,7 +20,11 @@
         <ng-template *ngSwitchDefault>test</ng-template>
         </ng-container>
 
-        <ng-container [ngSwitch]="typeOf(post.attributedTo)" *ngIf="displayAuthor">
+        @for (author of authors; track $index) {
+          {{ author.name }}
+        }
+        &bullet;
+        <ng-container [ngSwitch]="typeOf(post.attributedTo)" *ngIf="false">
           <ng-template [ngSwitchCase]="undefined">
             {{ post.attributedTo }}
           </ng-template>

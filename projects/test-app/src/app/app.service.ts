@@ -176,7 +176,6 @@ export class AppService {
       .reduce<(number | null)[]>((acc, curr, idx, a) => {
         acc.push(curr);
         if (idx < a.length - 1 && curr + 1 !== a[idx + 1]) {
-          console.log(`push null`);
           acc.push(null);
         }
         return acc;
