@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ActorDto, ForumService } from 'projects/ui-common/src/lib/api';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, map } from 'rxjs';
 import { NoteComponent } from '../../components/content/note/note.component';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { FormsModule } from '@angular/forms';
@@ -69,6 +69,9 @@ export class ForumIndexComponent {
     };
 
     this.forumService.postOutbox(this.forumname, data)
+      .pipe(
+        finalize(() => this.isPosting = false)
+      )
       .subscribe({
         next: _response => this.onPostComplete(),
         error: err => this.onPostError(err)
@@ -76,10 +79,12 @@ export class ForumIndexComponent {
   }
 
   protected onPostComplete() {
-    this.router.navigate(['..'], {relativeTo: this.route});
+    this.loadContent();
+    // this.isPosting = false;
+    // this.router.navigate(['..'], {relativeTo: this.route});
   }
 
-  protected onPostError(err: any) {
+  protected onPostError(_err: any) {
     // handle error
   }
 

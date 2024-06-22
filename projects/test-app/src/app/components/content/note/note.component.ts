@@ -3,11 +3,13 @@ import { CommonModule } from "@angular/common";
 import { ActorDto, NoteCreateDto, ObjectDtoAttributedTo, UserService } from "projects/ui-common/src/lib/api";
 import { AppService } from "../../../app.service";
 import { IsArrayPipe } from "../../../pipes/is-array.pipe";
+import { ToArrayPipe } from "../../../pipes/to-array.pipe";
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-note",
   standalone: true,
-  imports: [CommonModule, IsArrayPipe],
+  imports: [CommonModule, RouterModule, IsArrayPipe, ToArrayPipe],
   templateUrl: "./note.component.html",
   styleUrls: ["./note.component.css"],
 })
