@@ -23,7 +23,7 @@
 
       @if (displayAuthor) {
         @for (author of authors; track $index) {
-          {{ author.name }} &bullet;
+          {{ author.preferredUsername }} &bullet;
         }
       }
 
@@ -45,11 +45,11 @@
     <div class="mt-2">
       <h3 class="text-lg" *ngIf="post.name">{{ post.name }}</h3>
       <div [innerHTML]="post.content"></div>
-      <div class="mt-2 text-sm">
-        0 Replies
-        <button class="btn btn-sm mr-2" (click)="isPosting = true">Reply</button>
-        <a class="btn btn-sm mr-2">Edit</a>
-        <a class="btn btn-sm mr-2">Delete</a>
+      <div class="mt-4 text-md">
+        <span class="mr-4">0 Replies</span >
+        <button class="btn btn-sm mr-4" (click)="isPosting = true">Reply</button>
+        <a class="btn btn-sm mr-4">Edit</a>
+        <a class="btn btn-sm mr-4">Delete</a>
       </div>
     </div>
     <div *ngIf="isPosting">

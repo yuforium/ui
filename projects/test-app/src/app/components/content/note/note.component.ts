@@ -81,12 +81,13 @@ export class NoteComponent {
 
     const user = this.appService.user$.getValue();
 
-    if (user) {
-      this.userService.postUserOutbox(user.preferredUsername, data)
-        .subscribe((_response) => {
-          this.isPosting = false;
-        });
-    }
+    console.log('the data is ', data)
+    // if (user && false) {
+    //   this.userService.postUserOutbox(user.preferredUsername, data)
+    //     .subscribe((_response) => {
+    //       this.isPosting = false;
+    //     });
+    // }
 
     this.isPosting = false;
   }
