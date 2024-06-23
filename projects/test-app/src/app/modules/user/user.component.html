@@ -65,7 +65,7 @@
     }
     @else {
       @for (post of posts$ | async; track $index) {
-        <app-note [post]="post" [displayAuthor]="false" [excludeAuthors]="(user$ | async)?.id"></app-note>
+        <app-note [post]="post" [displayAuthor]="false" [excludeAuthors]="(user$ | async)?.id" (onReply)="this.onReply($event)"></app-note>
       }
     }
     </div>

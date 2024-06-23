@@ -19,13 +19,13 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { ContentQueryOptionsDto } from '../model/contentQueryOptionsDto';
+// @ts-ignore
 import { NoteCreateDto } from '../model/noteCreateDto';
 // @ts-ignore
 import { OrderedCollectionPageDto } from '../model/orderedCollectionPageDto';
 // @ts-ignore
 import { PersonDto } from '../model/personDto';
-// @ts-ignore
-import { UserContentQueryOptionsDto } from '../model/userContentQueryOptionsDto';
 // @ts-ignore
 import { UserCreateDto } from '../model/userCreateDto';
 
@@ -286,10 +286,10 @@ export class UserService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<OrderedCollectionPageDto>;
-    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<OrderedCollectionPageDto>>;
-    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<OrderedCollectionPageDto>>;
-    public getContent(username: string, contentQuery?: UserContentQueryOptionsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getContent(username: string, contentQuery?: ContentQueryOptionsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<OrderedCollectionPageDto>;
+    public getContent(username: string, contentQuery?: ContentQueryOptionsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<OrderedCollectionPageDto>>;
+    public getContent(username: string, contentQuery?: ContentQueryOptionsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<OrderedCollectionPageDto>>;
+    public getContent(username: string, contentQuery?: ContentQueryOptionsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (username === null || username === undefined) {
             throw new Error('Required parameter username was null or undefined when calling getContent.');
         }

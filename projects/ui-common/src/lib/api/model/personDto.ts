@@ -29,6 +29,7 @@ export interface PersonDto {
     to?: NoteCreateDtoName;
     cc?: NoteCreateDtoName;
     bcc?: NoteCreateDtoName;
+    audience?: NoteCreateDtoName;
     summary: string;
     preferredUsername: string;
 }

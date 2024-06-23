@@ -36,7 +36,7 @@ export class ForumPostComponent {
     };
 
     this.loading = true;
-    this.forumService.postOutbox(this.forumId, data)
+    this.forumService.postForumOutbox(this.forumId, data)
       .subscribe({
         next: response => this.onPostComplete(),
         error: err => this.onPostError(err)

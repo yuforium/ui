@@ -26,7 +26,7 @@ model/objectDtoAttributedTo.ts
 model/orderedCollectionPageDto.ts
 model/personDto.ts
 model/personDtoName.ts
-model/postOutboxRequest.ts
+model/postForumOutboxRequest.ts
 model/userContentQueryOptionsDto.ts
 model/userCreateDto.ts
 param.ts

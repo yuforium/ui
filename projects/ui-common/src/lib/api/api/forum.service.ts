@@ -27,7 +27,7 @@ import { ForumCreateDto } from '../model/forumCreateDto';
 // @ts-ignore
 import { OrderedCollectionPageDto } from '../model/orderedCollectionPageDto';
 // @ts-ignore
-import { PostOutboxRequest } from '../model/postOutboxRequest';
+import { PostForumOutboxRequest } from '../model/postForumOutboxRequest';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -520,19 +520,19 @@ export class ForumService {
     /**
      * Post to a forum outbox
      * @param forumname 
-     * @param postOutboxRequest 
+     * @param postForumOutboxRequest 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public postOutbox(forumname: string, postOutboxRequest: PostOutboxRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public postOutbox(forumname: string, postOutboxRequest: PostOutboxRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public postOutbox(forumname: string, postOutboxRequest: PostOutboxRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public postOutbox(forumname: string, postOutboxRequest: PostOutboxRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public postForumOutbox(forumname: string, postForumOutboxRequest: PostForumOutboxRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public postForumOutbox(forumname: string, postForumOutboxRequest: PostForumOutboxRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public postForumOutbox(forumname: string, postForumOutboxRequest: PostForumOutboxRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public postForumOutbox(forumname: string, postForumOutboxRequest: PostForumOutboxRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
         if (forumname === null || forumname === undefined) {
-            throw new Error('Required parameter forumname was null or undefined when calling postOutbox.');
+            throw new Error('Required parameter forumname was null or undefined when calling postForumOutbox.');
         }
-        if (postOutboxRequest === null || postOutboxRequest === undefined) {
-            throw new Error('Required parameter postOutboxRequest was null or undefined when calling postOutbox.');
+        if (postForumOutboxRequest === null || postForumOutboxRequest === undefined) {
+            throw new Error('Required parameter postForumOutboxRequest was null or undefined when calling postForumOutbox.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -585,7 +585,7 @@ export class ForumService {
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: postOutboxRequest,
+                body: postForumOutboxRequest,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

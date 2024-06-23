@@ -12,6 +12,6 @@ export * from './objectDtoAttributedTo';
 export * from './orderedCollectionPageDto';
 export * from './personDto';
 export * from './personDtoName';
-export * from './postOutboxRequest';
+export * from './postForumOutboxRequest';
 export * from './userContentQueryOptionsDto';
 export * from './userCreateDto';

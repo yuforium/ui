@@ -25,5 +25,6 @@ export interface ObjectDto {
     to?: NoteCreateDtoName;
     cc?: NoteCreateDtoName;
     bcc?: NoteCreateDtoName;
+    audience?: NoteCreateDtoName;
 }
 

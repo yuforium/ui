@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ActorDto, ForumService } from 'projects/ui-common/src/lib/api';
-import { BehaviorSubject, Observable, finalize, map } from 'rxjs';
+import { ActorDto, ForumService, NoteCreateDto } from 'projects/ui-common/src/lib/api';
+import { BehaviorSubject, Observable, Subject, finalize, map } from 'rxjs';
 import { NoteComponent } from '../../components/content/note/note.component';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { FormsModule } from '@angular/forms';
@@ -68,7 +68,7 @@ export class ForumIndexComponent {
       name: this.name
     };
 
-    this.forumService.postOutbox(this.forumname, data)
+    this.forumService.postForumOutbox(this.forumname, data)
       .pipe(
         finalize(() => this.isPosting = false)
       )
@@ -93,5 +93,18 @@ export class ForumIndexComponent {
       .pipe(
         map(response => response.items)
       )
+  }
+
+  onReply({reply, result$}: {reply: NoteCreateDto, result$: Subject<boolean>}) {
+    this.forumService.postForumOutbox(this.forumname, reply)
+      .subscribe({
+        next: _response => {
+          result$.next(true);
+          this.loadContent();
+        },
+        error: err => {
+          result$.error(err);
+        }
+      });
   }
 }

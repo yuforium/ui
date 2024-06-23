@@ -1,10 +1,11 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ActorDto, NoteCreateDto, ObjectDtoAttributedTo, UserService } from "projects/ui-common/src/lib/api";
+import { ActorDto, ForumService, NoteCreateDto, ObjectDto, ObjectDtoAttributedTo, UserService } from "projects/ui-common/src/lib/api";
 import { AppService } from "../../../app.service";
 import { IsArrayPipe } from "../../../pipes/is-array.pipe";
 import { ToArrayPipe } from "../../../pipes/to-array.pipe";
 import { RouterModule } from "@angular/router";
+import { Subject } from "rxjs";
 
 @Component({
   selector: "app-note",
@@ -17,10 +18,15 @@ export class NoteComponent {
   @Input() public post!: any;
   @Input() public displayAuthor: boolean = true;
   @Input() public excludeAuthors?: string | string[];
+  @Output() public onReply = new EventEmitter<{reply: NoteCreateDto, result$: Subject<boolean>}>();
 
   public isPosting = false;
 
-  constructor(protected appService: AppService, protected userService: UserService) { }
+  constructor(
+    protected appService: AppService,
+    protected userService: UserService,
+    protected forumService: ForumService
+  ) { }
 
   isArray(value: any): boolean {
     return Array.isArray(value);
@@ -79,16 +85,23 @@ export class NoteComponent {
     data.to = Array.isArray(data.to) ? data.to : [data.to];
     data.to.push('https://www.w3.org/ns/activitystreams#Public');
 
-    const user = this.appService.user$.getValue();
+    data.to = data.to.map((to: string | ObjectDto) => {
+      if (typeof to === 'string') {
+        return to;
+      }
+      return to.id;
+    });
 
-    console.log('the data is ', data)
-    // if (user && false) {
-    //   this.userService.postUserOutbox(user.preferredUsername, data)
-    //     .subscribe((_response) => {
-    //       this.isPosting = false;
-    //     });
-    // }
+    const result$ = new Subject<boolean>();
+    this.onReply.emit({reply: data, result$: result$});
 
-    this.isPosting = false;
+    result$.subscribe((success) => {
+      if (success) {
+        this.isPosting = false;
+      }
+      else {
+        this.isPosting = false;
+      }
+    });
   }
 }

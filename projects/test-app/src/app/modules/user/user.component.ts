@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ActorDto, NoteCreateDto } from "projects/ui-common/src/lib/api";
 import { UserService } from "projects/ui-common/src/lib/api/api/user.service";
 import { PersonDto } from "projects/ui-common/src/lib/api/model/personDto";
-import { BehaviorSubject, Observable, catchError, map, shareReplay } from "rxjs";
+import { BehaviorSubject, Observable, Subject, catchError, map, shareReplay } from "rxjs";
 import { AppService } from "../../app.service";
 import { Editor } from "ngx-editor";
 
@@ -141,5 +141,16 @@ export class UserComponent implements OnInit, OnDestroy {
         this.isPosting = false;
         this.loadContent();
       });
+  }
+
+  onReply({reply, result$}: {reply: NoteCreateDto, result$: Subject<boolean>}) {
+    const user = this.user$.getValue();
+
+    if (user) {
+      this.userService.postUserOutbox(user.preferredUsername, reply).subscribe({
+        next: () => result$.next(true),
+        error: () => result$.next(false)
+      });
+    }
   }
 }
