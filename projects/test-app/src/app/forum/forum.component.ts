@@ -4,12 +4,11 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ActorDto, ForumService, PersonDto } from 'projects/ui-common/src/lib/api';
 import { BehaviorSubject } from 'rxjs';
 import { ActorHeaderComponent } from '../components/content/actor-header/actor-header.component';
-import { ActorToolbarComponent } from '../components/content/actor-toolbar/actor-toolbar.component';
 
 @Component({
   selector: 'app-forum',
   standalone: true,
-  imports: [CommonModule, RouterModule, ActorHeaderComponent, ActorToolbarComponent],
+  imports: [CommonModule, RouterModule, ActorHeaderComponent],
   templateUrl: './forum.component.html',
   styleUrls: ['./forum.component.css']
 })
