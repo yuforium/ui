@@ -36,6 +36,6 @@
 
 <div>
   <div *ngFor="let post of posts$ | async" class="mb-3">
-    <app-note [post]="post" [excludeAuthors]="(forum$ | async)?.id" (onReply)="this.onReply($event)"></app-note>
+    <app-note [post]="post" [excludeAuthors]="(forum$ | async)?.id" (onReply)="this.onReply($event)" (onContentClick)="onContentClick($event)"></app-note>
   </div>
 </div>

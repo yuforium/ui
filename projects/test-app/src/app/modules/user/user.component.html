@@ -2,7 +2,7 @@
   <main role="main">
     <app-actor-header [actor]="user$"></app-actor-header>
 
-    <div class="sticky top-20 bg-base-100 bg-opacity-70 mb-2 p-2 rounded">
+    <div class="sticky top-20 bg-base-100 bg-opacity-95 mb-2 p-2 rounded-lg">
       <div class="flex">
         <div class="flex flex-grow items-center">
           @if (isLoadingError) {
@@ -64,7 +64,7 @@
       </div>
     }
     @else {
-      @for (post of posts$ | async; track $index) {
+      @for (post of posts$ | async; track post.id) {
         <app-note [post]="post" [displayAuthor]="false" [excludeAuthors]="(user$ | async)?.id" (onReply)="this.onReply($event)"></app-note>
       }
     }

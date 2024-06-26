@@ -19,8 +19,14 @@ export class NoteComponent {
   @Input() public displayAuthor: boolean = true;
   @Input() public excludeAuthors?: string | string[];
   @Output() public onReply = new EventEmitter<{reply: NoteCreateDto, result$: Subject<boolean>}>();
+  @Output() public onContentClick = new EventEmitter<{event: MouseEvent, content: string, post: ObjectDto}>();
 
   public isPosting = false;
+  public readonly totalRepliesMap = {
+    '=0': "No replies",
+    '=1': "1 reply",
+    other: "# replies"
+  }
 
   constructor(
     protected appService: AppService,
@@ -103,5 +109,9 @@ export class NoteComponent {
         this.isPosting = false;
       }
     });
+  }
+
+  public handleContentClick(event: MouseEvent, content: string) {
+    this.onContentClick.emit({event, content, post: this.post});
   }
 }

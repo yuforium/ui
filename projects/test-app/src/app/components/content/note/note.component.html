@@ -44,9 +44,9 @@
   <div>
     <div class="mt-2">
       <h3 class="text-lg" *ngIf="post.name">{{ post.name }}</h3>
-      <div [innerHTML]="post.content"></div>
+      <div class="cursor-pointer" (click)="this.handleContentClick($event, 'content')" [innerHTML]="post.content"></div>
       <div class="mt-4 text-md">
-        <span class="mr-4">0 Replies</span >
+        <span class="mr-4">{{ post.replies.totalItems | i18nPlural : totalRepliesMap }}</span >
         <button class="btn btn-sm mr-4" (click)="isPosting = true">Reply</button>
         <a class="btn btn-sm mr-4">Edit</a>
         <a class="btn btn-sm mr-4">Delete</a>

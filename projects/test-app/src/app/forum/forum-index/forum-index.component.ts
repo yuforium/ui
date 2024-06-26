@@ -107,4 +107,7 @@ export class ForumIndexComponent {
         }
       });
   }
+
+  onContentClick(event: any) {
+  }
 }

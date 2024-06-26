@@ -87,6 +87,7 @@ export class UserComponent implements OnInit, OnDestroy {
         const totalPages = this.totalItems % this.limit === 0 ? this.totalItems / this.limit : Math.floor(this.totalItems / this.limit) + 1;
         this.pagination = this.appService.generatePagination(totalPages || 1, this.currentPage + 1);
         this.isLoadingError = false;
+
         return response.items;
       }),
       shareReplay(),
