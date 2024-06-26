@@ -1,9 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'yf-text-input',
-  templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.css']
+    selector: 'yf-text-input',
+    templateUrl: './text-input.component.html',
+    styleUrls: ['./text-input.component.css'],
+    standalone: true,
+    imports: [NgIf]
 })
 export class TextInputComponent implements OnInit {
   @Input() label: string = '';

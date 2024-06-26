@@ -3,18 +3,19 @@ import { AppService } from './app.service';
 import { Title } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 import { PersonDto } from 'projects/yuforium-ui-common/src/lib/api';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: true,
+    imports: [RouterOutlet, RouterLink, NgIf, AsyncPipe]
 })
 export class AppComponent {
   public readonly title;
   public $user!: BehaviorSubject<PersonDto | null>
-
-  username: string = 'test';
 
   constructor(readonly appService: AppService, readonly titleService: Title, protected router: Router) {
     this.title = appService.title;

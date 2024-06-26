@@ -8,8 +8,8 @@ describe('UiCommonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiCommonComponent ]
-    })
+    imports: [UiCommonComponent]
+})
     .compileComponents();
   });
 
