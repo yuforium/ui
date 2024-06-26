@@ -1,26 +1,35 @@
 <div class="max-w-md mx-auto static">
-  <span *ngIf="loading" class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+  @if (loading) {
+    <span class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+  }
 
-  <div class="mb-2">
-    <h3>Login to your account</h3>
+  <div hlmH3 class="my-4">
+    <h3>Login to Your Account</h3>
   </div>
 
-  <div class="alert alert-error" *ngIf="loginError">
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    <span>{{ loginErrorMessage }}</span>
+  @if (loginError) {
+    <div hlmAlert class="mb-2">
+      <hlm-icon hlmAlertIcon name="lucideShieldAlert" />
+      <p hlmAlertDesc>{{ loginErrorMessage }}</p>
+    </div>
+  }
+  @else {
+  <div hlmAlert class="mb-2 bg-secondary text-secondary-foreground">
+    <hlm-icon hlmAlertIcon name="lucideInfo" />
+    <p hlmAlertDesc>Don't have an account?  Sign up for free.</p>
   </div>
+  }
 
-  <div class="mb-4" [ngClass]="{'opacity-50': loading}">
-    <label class="label">
-      <span class="label-text">Username</span>
+  <div [class.opacity-50]="loading" class="mb-4">
+    <label hlmLabel>
+      Username
+      <input hlmInput #username class="w-full" type="text" name="username" placeholder="Enter your username" />
     </label>
-    <input #username type="text" name="username" placeholder="Enter your username">
-
-    <label class="label">
-      <span class="label-text">Password</span>
+    <label hlmLabel>
+      Password
+      <input hlmInput #password class="w-full" type="password" name="password" placeholder="Enter your password" />
     </label>
-    <input #password type="password" name="password" placeholder="Enter your password" />
   </div>
 
-  <button class="btn btn-primary mb-4" (click)="login(username.value, password.value)" [disabled]="loading">Login</button>
+  <button hlmBtn (click)="login(username.value, password.value)" [disabled]="loading">Login</button>
 </div>

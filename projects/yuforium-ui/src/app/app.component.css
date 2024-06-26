@@ -1,14 +1,14 @@
 /* content div */
 .navbar {
-    @apply px-2;
-    @apply lowercase text-sky-600;
-    @apply fixed top-0 left-0 right-0 h-10;
+    /* @apply px-2; */
+    /* @apply lowercase text-sky-600; */
+    /* @apply fixed top-0 left-0 right-0 h-10; */
 }
 
 .navbar .btn {
-    @apply lowercase content-center;
+    /* @apply lowercase content-center; */
 }
 
 .content {
-    @apply container mx-auto px-4 py-2 mt-16;
+    @apply container mx-auto px-4 py-2;
 }

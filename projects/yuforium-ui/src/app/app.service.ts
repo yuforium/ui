@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import {
   AuthService,
   Configuration,
@@ -16,6 +16,8 @@ export interface StoredApiToken {
   providedIn: "root",
 })
 export class AppService {
+  public readonly user = signal<PersonDto | null>(null);
+  // @todo remove this and use the signal instead
   public readonly user$ = new BehaviorSubject<PersonDto | null>(null);
   protected storedApiToken: StoredApiToken | null = null;
   protected _profile: PersonDto | null = null;
@@ -26,6 +28,9 @@ export class AppService {
   ) {
     const t = localStorage.getItem("apiToken");
 
+    /**
+     * @todo move this into a separate function above.  we can use this to initalize the user signal so we initialize AppService with a prepopulated user
+     */
     if (t) {
       const storedApiToken = JSON.parse(t);
       storedApiToken.expiresAt = new Date(storedApiToken.expiresAt);
@@ -38,6 +43,7 @@ export class AppService {
         this.storedApiToken = storedApiToken;
         this.config.credentials["bearer"] = storedApiToken.accessToken;
         this.authService.profile().subscribe((profile: PersonDto) => {
+          this.user.set(profile);
           this.user$.next(profile);
           this._profile = profile;
         });
@@ -138,6 +144,7 @@ export class AppService {
         return this.authService.profile();
       }),
       map((profile: PersonDto) => {
+        this.user.set(profile);
         this.user$.next(profile);
         return profile;
       }),
@@ -148,6 +155,7 @@ export class AppService {
     this.storedApiToken = null;
     localStorage.removeItem("apiToken");
     this.config.credentials["bearer"] = () => undefined;
+    this.user.set(null);
     this.user$.next(null);
   }
 

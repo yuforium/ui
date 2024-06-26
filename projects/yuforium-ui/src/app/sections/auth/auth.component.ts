@@ -4,14 +4,23 @@ import { UserService } from 'projects/yuforium-ui-common/src/lib/api/api/user.se
 import { AppService } from '../../app.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { HlmLabelModule } from '../../../../../spartan-ui/ui-label-helm/src';
+import { HlmInputModule } from '../../../../../spartan-ui/ui-input-helm/src';
+import { HlmButtonModule } from '../../../../../spartan-ui/ui-button-helm/src';
+import { HlmAlertModule } from '../../../../../spartan-ui/ui-alert-helm/src';
+import { HlmIconModule, provideIcons } from '../../../../../spartan-ui/ui-icon-helm/src';
+import { lucideInfo, lucideShieldAlert } from '@ng-icons/lucide';
+import { HlmH3Directive } from '../../../../../spartan-ui/ui-typography-helm/src';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [HlmLabelModule, HlmInputModule, HlmButtonModule, HlmAlertModule, HlmIconModule, HlmH3Directive],
+  providers: [
+    provideIcons({lucideShieldAlert, lucideInfo})
+  ]
 })
 export class AuthComponent implements AfterViewInit {
   public loading = false;
