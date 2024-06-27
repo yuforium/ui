@@ -1,13 +1,20 @@
 <div class="max-w-md mx-auto static">
-  <span *ngIf="loading" class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
-  <div class="mb-2">
-    <h3>Sign up</h3>
+  @if (loading) {
+    <hlm-spinner class="absolute top-1/2 left-1/2"></hlm-spinner>
+  }
+
+  <div class="my-4">
+    <h3 hlmH3>Sign up</h3 >
     <p>Sign up with {{ appName || 'Yuforium' }} by creating a free account.</p>
   </div>
 
-  <div class="alert alert-error" *ngIf="displayError">
-    <span>please enter all fields correctly</span>
-  </div>
+  @if (displayError) {
+    <div hlmAlert class="mb-2">
+      <hlm-icon hlmAlertIcon name="lucideShieldAlert" />
+      <h4 hlmAlertTitle>No that won't work</h4 >
+      <p hlmAlertDesc>Please enter all fields correctly.  There should be a little hint above each field that tells you what's up.</p>
+    </div>
+  }
 
   <ng-template #errorTemplate let-control="control" let-initial="initial">
     @if (initial && control.untouched) {
@@ -85,14 +92,14 @@
       <input #email id="signup-email" type="text" formControlName="email" placeholder="user@example.com">
     </div>
 
-    <button #button
+    <button hlmBtn #button
       tabindex="0"
       (click)="signup(username.value, password.value, passwordAgain.value, email.value)"
       type="button"
       class="btn btn-primary mt-4"
       >
     Sign Up
-    </button>
+    </button >
   </form>
 
 </div>

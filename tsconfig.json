@@ -35,6 +35,9 @@
       ],
       "@spartan-ng/ui-typography-helm": [
         "./projects/spartan-ui/ui-typography-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-spinner-helm": [
+        "./projects/spartan-ui/ui-spinner-helm/src/index.ts"
       ]
     },
     "outDir": "./dist/out-tsc",

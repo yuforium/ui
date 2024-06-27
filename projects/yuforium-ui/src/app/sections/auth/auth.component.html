@@ -1,23 +1,25 @@
-<div class="max-w-md mx-auto static">
+<div class="max-w-md mx-auto relative">
   @if (loading) {
-    <span class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+    <hlm-spinner class="absolute top-1/2 left-1/2"></hlm-spinner >
   }
 
   <div hlmH3 class="my-4">
-    <h3>Login to Your Account</h3>
+    <h3>Login to your account</h3>
   </div>
 
   @if (loginError) {
     <div hlmAlert class="mb-2">
       <hlm-icon hlmAlertIcon name="lucideShieldAlert" />
+      <h4 hlmAlertTitle>Login failed</h4 >
       <p hlmAlertDesc>{{ loginErrorMessage }}</p>
     </div>
   }
   @else {
-  <div hlmAlert class="mb-2 bg-secondary text-secondary-foreground">
-    <hlm-icon hlmAlertIcon name="lucideInfo" />
-    <p hlmAlertDesc>Don't have an account?  Sign up for free.</p>
-  </div>
+    <div hlmAlert [class.opacity-50]="loading" class="mb-2">
+      <hlm-icon hlmAlertIcon name="lucideInfo" />
+      <h4 hlmAlertTitle>Don't have an account?</h4>
+      <p hlmAlertDesc><a [routerLink]="['/', 'signup']">Click here</a> to create a new one.</p>
+    </div>
   }
 
   <div [class.opacity-50]="loading" class="mb-4">
