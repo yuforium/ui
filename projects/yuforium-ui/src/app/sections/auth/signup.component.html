@@ -1,22 +1,29 @@
 <div class="max-w-md mx-auto static">
-  <span *ngIf="loading" class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
-  <div class="mb-2">
-    <h3>Sign up</h3>
+  @if (loading) {
+    <hlm-spinner class="absolute top-1/2 left-1/2"></hlm-spinner>
+  }
+
+  <div class="my-4">
+    <h3 hlmH3>Sign up</h3 >
     <p>Sign up with {{ appName || 'Yuforium' }} by creating a free account.</p>
   </div>
 
-  <div class="alert alert-error" *ngIf="displayError">
-    <span>please enter all fields correctly</span>
-  </div>
+  @if (displayError) {
+    <div hlmAlert class="mb-4">
+      <hlm-icon hlmAlertIcon name="lucideShieldAlert" />
+      <h4 hlmAlertTitle>Please enter all fields correctly</h4 >
+      <p hlmAlertDesc>Not all fields were entered correctly, please check the form for any errors.</p>
+    </div>
+  }
 
   <ng-template #errorTemplate let-control="control" let-initial="initial">
     @if (initial && control.untouched) {
-      <span *ngIf="initial && control.untouched" class="label-text-alt text-sky-500">{{ initial }}</span>
+      <span class="flex-none label-text-alt">{{ initial }}</span>
     }
 
     @if (control.touched) {
       @if (control.invalid) {
-        <span class="label-text-alt text-red-500" *ngIf="control.invalid" [ngSwitch]="(control.errors | keyvalue)[0].key">
+        <span class="flex-none label-text-alt text-red-500" *ngIf="control.invalid" [ngSwitch]="(control.errors | keyvalue)[0].key">
           @switch ((control.errors | keyvalue)[0].key) {
             @case ('required') {
               Required
@@ -52,47 +59,55 @@
     <!-- <span *ngIf="control.errors && !control.untouched">{{ control.errors | json }}</span> -->
   </ng-template>
 
-  <form class="mb-4 container" [formGroup]="signupForm" [ngClass]="{'opacity-50': loading}">
-    <div class="mb-2">
-      <label class="label">
-        <span class="label-text">Username</span>
-        <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['username'], initial: 'Required'};" ></ng-container>
+  <form class="mb-4" [formGroup]="signupForm" [class.opacity-50]="loading">
+    <div class="mb-4">
+      <label hlmLabel>
+        <div class="flex mb-2">
+          <span class="flex-1">Username</span>
+          <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['username'], initial: 'Required'};" ></ng-container>
+        </div>
+        <input hlmInput #username class="w-full" id="signup-username" type="text" autocomplete="off" formControlName="username" placeholder="enter username">
       </label>
-      <input #username id="signup-username" type="text" autocomplete="off" formControlName="username" placeholder="enter username">
     </div>
 
-    <div class="mb-2">
-      <label class="label">
-        <span class="label-text">Password</span>
-        <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['password'], initial: 'Required'};" ></ng-container>
+    <div class="mb-4">
+      <label hlmLabel>
+        <div class="flex mb-2">
+          <span class="flex-1">Password</span>
+          <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['password'], initial: 'Required'};" ></ng-container>
+        </div>
+        <input hlmInput #password class="w-full" id="signup-password" type="password" formControlName="password" placeholder="enter password">
       </label>
-      <input #password id="signup-password" type="password" formControlName="password" placeholder="enter password">
     </div>
 
-    <div class="mb-2">
-      <label class="label">
-        <span class="label-text">Password (again)</span>
-        <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['passwordAgain'], initial: 'Required'};" ></ng-container>
+    <div class="mb-4">
+      <label hlmLabel class="mt-2">
+        <div class="flex mb-2">
+          <span class="flex-1">Password (again)</span>
+          <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['passwordAgain'], initial: 'Required'};" ></ng-container>
+        </div>
+        <input hlmInput #passwordAgain class="w-full" id="signup-password-again" type="password" formControlName="passwordAgain" placeholder="verify password">
       </label>
-      <input #passwordAgain id="signup-password-again" type="password" formControlName="passwordAgain" placeholder="verify password">
+    </div >
+
+    <div class="mb-4">
+      <label hlmLabel>
+        <div class="flex mb-2">
+          <span class="flex-1">Email Address</span>
+          <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['email'], initial: 'Required'};" ></ng-container>
+        </div>
+        <input hlmInput #email class="w-full" id="signup-email" type="text" formControlName="email" placeholder="user@example.com">
+      </label>
     </div>
 
-    <div class="mb-2">
-      <label class="label">
-        <span class="label-text">Email</span>
-        <ng-container *ngTemplateOutlet="errorTemplate; context: {control: signupForm.controls['email'], initial: 'Required'};" ></ng-container>
-      </label>
-      <input #email id="signup-email" type="text" formControlName="email" placeholder="user@example.com">
-    </div>
-
-    <button #button
+    <button hlmBtn #button
       tabindex="0"
       (click)="signup(username.value, password.value, passwordAgain.value, email.value)"
       type="button"
       class="btn btn-primary mt-4"
       >
     Sign Up
-    </button>
+    </button >
   </form>
 
 </div>

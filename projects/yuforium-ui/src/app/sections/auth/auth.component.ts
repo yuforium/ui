@@ -2,8 +2,16 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthService, Configuration } from 'projects/yuforium-ui-common/src/lib/api';
 import { UserService } from 'projects/yuforium-ui-common/src/lib/api/api/user.service';
 import { AppService } from '../../app.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { HlmLabelModule } from '../../../../../spartan-ui/ui-label-helm/src';
+import { HlmInputModule } from '../../../../../spartan-ui/ui-input-helm/src';
+import { HlmButtonModule } from '../../../../../spartan-ui/ui-button-helm/src';
+import { HlmAlertModule } from '../../../../../spartan-ui/ui-alert-helm/src';
+import { HlmIconModule, provideIcons } from '../../../../../spartan-ui/ui-icon-helm/src';
+import { lucideInfo, lucideShieldAlert } from '@ng-icons/lucide';
+import { HlmH3Directive } from '../../../../../spartan-ui/ui-typography-helm/src';
+import { HlmSpinnerModule } from '@spartan-ng/ui-spinner-helm';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,7 +19,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [
+    RouterModule,
+    HlmLabelModule,
+    HlmInputModule,
+    HlmButtonModule,
+    HlmAlertModule,
+    HlmIconModule,
+    HlmH3Directive,
+    HlmSpinnerModule
+  ],
+  providers: [
+    provideIcons({lucideShieldAlert, lucideInfo})
+  ]
 })
 export class AuthComponent implements AfterViewInit {
   public loading = false;

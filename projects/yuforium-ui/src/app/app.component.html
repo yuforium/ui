@@ -1,12 +1,30 @@
+<nav class="flex items-center p-4 px-8 bg-base-200 sticky top-0 z-50">
+  <a [routerLink]="['/']" class="no-underline flex-1 lowercase text-3xl font-abz-sans text-accent-foreground">{{ title }}</a>
+    <div class="flex-none">
+        <button [class.hidden]="!user()" [class.bg-accent]="menuOpen" [brnMenuTriggerFor]="menu" hlmBtn variant="ghost">&#64;{{ (user$ | async)?.preferredUsername }}</button>
+        <ng-template #menu>
+          <hlm-menu>
+            <button hlmMenuItem [routerLink]="['/', 'users', (user$ | async)?.preferredUsername]">Profile</button>
+            <hlm-menu-separator />
+            <button hlmMenuItem (click)="logout()">Logout</button>
+          </hlm-menu >
+        </ng-template>
+
+        <button [class.hidden]="user()" hlmBtn variant="ghost" [routerLink]="['/login']">Login</button>
+        <button [class.hidden]="user()" hlmBtn variant="ghost" [routerLink]="['/signup']" class="btn btn-ghost">Signup</button>
+
+    </div>
+</nav>
+
 <div class="content">
   <router-outlet></router-outlet>
 </div>
 
+
 <!-- header placed at end so that it stacks properly -->
-<div class="navbar bg-base-200 mx-auto">
+<div style="display: none;" class="navbar bg-base-200 mx-auto hidden">
   <div class="container mx-auto">
     <div class="flex-1">
-      <a [routerLink]="['/']" class="btn btn-ghost lowercase text-3xl font-abz-sans">{{ title }}</a>
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1">
@@ -21,13 +39,13 @@
             </div>
           </div> -->
           <li>
-            <a #loginItem class="btn btn-ghost" [routerLink]="['/login']">login</a>
+            <a variant="ghost" hlmBtn #loginItem class="btn btn-ghost" [routerLink]="['/login']">login</a>
           </li>
           <li>
-            <a class="btn btn-ghost" [routerLink]="['/signup']">signup</a>
+            <a variant="outline" hlmBtn class="btn btn-ghost" [routerLink]="['/signup']">signup</a>
           </li>
         </ng-template>
-        <li class="dropdown dropdown-end" *ngIf="$user | async as user; else notLoggedIn">
+        <li class="dropdown dropdown-end" *ngIf="user$ | async as user; else notLoggedIn">
           <label tabindex="0" class="btn btn-ghost rounded-btn">&#64;{{ user.preferredUsername }}</label>
           <ul #menu tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box mt-4">
             <li (click)="blurActiveElement()"><a [routerLink]="['/', 'users', user.preferredUsername]">Profile</a></li>

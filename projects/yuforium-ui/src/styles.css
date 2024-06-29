@@ -1,3 +1,5 @@
+@import '@angular/cdk/overlay-prebuilt.css';
+
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
@@ -6,46 +8,106 @@
 @tailwind components;
 @tailwind utilities;
 
-h1 {
-  @apply text-4xl;
-}
+/* h1 {
+@apply text-4xl;
+} */
 
-h2 {
-  @apply text-2xl my-4;
-}
+/* h2 {
+@apply text-2xl my-4;
+} */
 
-h3 {
-  @apply text-xl;
-}
+/* h3 {
+@apply text-xl;
+} */
 
-h1, h2, h3 {
-  @apply font-bold;
-}
+/* h1, h2, h3 {
+@apply font-bold;
+} */
 
 body {
-  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 /* input defaults - @todo something else is overriding the borders hence use of !important */
-input {
-  @apply input input-md input-bordered !important;
-  @apply w-full;
-}
+/* input {
+@apply input input-md input-bordered !important;
+@apply w-full;
+} */
 
-.label,
+/* .label,
 input::placeholder {
-  @apply lowercase;
-}
+@apply lowercase;
+} */
 
 div.y-columns {
-  @apply  flex flex-row flex-wrap;
+@apply  flex flex-row flex-wrap;
 }
 
 /* standard column layouts */
 div.y-columns > main {
-  @apply w-full sm:w-3/4 md:w-4/5 pt-1 mb-8;
+@apply w-full sm:w-3/4 md:w-4/5 pt-1 mb-8;
 }
 
 div.y-columns > aside {
-  @apply w-full sm:w-1/4 md:w-1/5 pr-4 sm:px-0;
+@apply w-full sm:w-1/4 md:w-1/5 pr-4 sm:px-0;
+}
+
+a {
+  @apply underline;
+}
+
+[hlmcardheader] {
+  @apply p-2 md:p-6;
+}
+[hlmcardcontent] {
+  @apply p-2 md:p-6 pt-0 md:pt-0;
+}
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: 0 0% 100%;
+--foreground: 224 71.4% 4.1%;
+--muted: 220 14.3% 95.9%;
+--muted-foreground: 220 8.9% 46.1%;
+--popover: 0 0% 100%;
+--popover-foreground: 224 71.4% 4.1%;
+--card: 0 0% 100%;
+--card-foreground: 224 71.4% 4.1%;
+--border: 220 13% 91%;
+--input: 220 13% 91%;
+--primary: 262.1 83.3% 57.8%;
+--primary-foreground: 210 20% 98%;
+--secondary: 220 14.3% 95.9%;
+--secondary-foreground: 220.9 39.3% 11%;
+--accent: 220 14.3% 95.9%;
+--accent-foreground: 220.9 39.3% 11%;
+--destructive: 0 84.2% 60.2%;
+--destructive-foreground: 210 20% 98%;
+--ring: 262.1 83.3% 57.8%;
+--radius: 0.5rem;
+}
+
+.dark {
+--background: 224 71.4% 4.1%;
+--foreground: 210 20% 98%;
+--muted: 215 27.9% 16.9%;
+--muted-foreground: 217.9 10.6% 64.9%;
+--popover: 224 71.4% 4.1%;
+--popover-foreground: 210 20% 98%;
+--card: 224 71.4% 4.1%;
+--card-foreground: 210 20% 98%;
+--border: 215 27.9% 16.9%;
+--input: 215 27.9% 16.9%;
+--primary: 263.4 70% 50.4%;
+--primary-foreground: 210 20% 98%;
+--secondary: 215 27.9% 16.9%;
+--secondary-foreground: 210 20% 98%;
+--accent: 215 27.9% 16.9%;
+--accent-foreground: 210 20% 98%;
+--destructive: 0 62.8% 30.6%;
+--destructive-foreground: 210 20% 98%;
+--ring: 263.4 70% 50.4%;
 }

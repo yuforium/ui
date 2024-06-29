@@ -7,13 +7,38 @@ import { map, Observable } from 'rxjs';
 import { AppService } from '../../app.service';
 import { environment } from '../../../environments/environment';
 import { CommonModule, KeyValuePipe } from '@angular/common';
+import { HlmSpinnerModule } from '@spartan-ng/ui-spinner-helm';
+import { HlmH3Directive } from '@spartan-ng/ui-typography-helm';
+import { HlmIconModule, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { lucideShieldAlert } from '@ng-icons/lucide';
+import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
+import { HlmAlertModule } from '@spartan-ng/ui-alert-helm';
+import { HlmLabelModule } from '@spartan-ng/ui-label-helm';
+import { HlmInputModule } from '@spartan-ng/ui-input-helm';
+import { BrnSeparatorModule } from '@spartan-ng/ui-separator-brain';
+import { HlmSeparatorModule } from '@spartan-ng/ui-separator-helm';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   standalone: true,
-  imports: [KeyValuePipe, FormsModule, ReactiveFormsModule, CommonModule]
+  imports: [
+    KeyValuePipe,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    HlmSpinnerModule,
+    HlmH3Directive,
+    HlmIconModule,
+    HlmButtonModule,
+    HlmAlertModule,
+    HlmLabelModule,
+    HlmInputModule
+  ],
+  providers: [
+    provideIcons({lucideShieldAlert})
+  ]
 })
 export class SignupComponent implements OnInit {
   public signupForm!: UntypedFormGroup;

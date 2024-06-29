@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -15,6 +14,36 @@
       "components": [
         "dist/components/components",
         "dist/components"
+      ],
+      "@spartan-ng/ui-button-helm": [
+        "./projects/spartan-ui/ui-button-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-menu-helm": [
+        "./projects/spartan-ui/ui-menu-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-icon-helm": [
+        "./projects/spartan-ui/ui-icon-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-input-helm": [
+        "./projects/spartan-ui/ui-input-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-label-helm": [
+        "./projects/spartan-ui/ui-label-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-alert-helm": [
+        "./projects/spartan-ui/ui-alert-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-typography-helm": [
+        "./projects/spartan-ui/ui-typography-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-spinner-helm": [
+        "./projects/spartan-ui/ui-spinner-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-separator-helm": [
+        "./projects/spartan-ui/ui-separator-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-card-helm": [
+        "./projects/spartan-ui/ui-card-helm/src/index.ts"
       ]
     },
     "outDir": "./dist/out-tsc",
