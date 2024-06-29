@@ -1,4 +1,4 @@
-FROM node:latest as builder
+FROM node:latest AS builder
 WORKDIR /usr/local/app
 COPY . /usr/local/app/
 RUN npm ci && npm run build yuforium-ui --prod
