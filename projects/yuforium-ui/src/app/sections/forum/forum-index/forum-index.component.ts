@@ -6,6 +6,10 @@ import { BehaviorSubject, Observable, Subject, finalize, map } from 'rxjs';
 import { NoteComponent } from '../../../components/content/note/note.component';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { FormsModule } from '@angular/forms';
+import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
+import { HlmIconModule, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { lucideFilePlus } from '@ng-icons/lucide';
+import { HlmCardModule } from '@spartan-ng/ui-card-helm';
 
 @Component({
   selector: 'app-forum-index',
@@ -15,8 +19,12 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     NoteComponent,
     FormsModule,
-    NgxEditorModule
+    NgxEditorModule,
+    HlmButtonModule,
+    HlmIconModule,
+    HlmCardModule
   ],
+  providers: [provideIcons({lucideFilePlus})],
   templateUrl: './forum-index.component.html',
   styleUrls: ['./forum-index.component.css']
 })

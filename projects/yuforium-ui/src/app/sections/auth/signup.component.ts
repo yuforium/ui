@@ -13,6 +13,10 @@ import { HlmIconModule, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { lucideShieldAlert } from '@ng-icons/lucide';
 import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
 import { HlmAlertModule } from '@spartan-ng/ui-alert-helm';
+import { HlmLabelModule } from '@spartan-ng/ui-label-helm';
+import { HlmInputModule } from '@spartan-ng/ui-input-helm';
+import { BrnSeparatorModule } from '@spartan-ng/ui-separator-brain';
+import { HlmSeparatorModule } from '@spartan-ng/ui-separator-helm';
 
 @Component({
   selector: 'app-signup',
@@ -28,7 +32,9 @@ import { HlmAlertModule } from '@spartan-ng/ui-alert-helm';
     HlmH3Directive,
     HlmIconModule,
     HlmButtonModule,
-    HlmAlertModule
+    HlmAlertModule,
+    HlmLabelModule,
+    HlmInputModule
   ],
   providers: [
     provideIcons({lucideShieldAlert})

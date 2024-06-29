@@ -10,13 +10,30 @@ import { NoteComponent } from "../../components/content/note/note.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgIf, AsyncPipe, I18nPluralPipe } from "@angular/common";
 import { ActorHeaderComponent } from "../../components/content/actor-header/actor-header.component";
+import { HlmCardModule } from "@spartan-ng/ui-card-helm";
+import { HlmButtonModule } from "@spartan-ng/ui-button-helm";
+import { HlmIconModule, provideIcons } from "@spartan-ng/ui-icon-helm";
+import { lucideFilePlus } from "@ng-icons/lucide";
 
 @Component({
     selector: "app-user",
     templateUrl: "./user.component.html",
     styleUrls: ["./user.component.css"],
     standalone: true,
-    imports: [ActorHeaderComponent, NgIf, NgxEditorModule, ReactiveFormsModule, FormsModule, NoteComponent, AsyncPipe, I18nPluralPipe]
+    imports: [
+      ActorHeaderComponent,
+      NgIf,
+      NgxEditorModule,
+      ReactiveFormsModule,
+      FormsModule,
+      NoteComponent,
+      AsyncPipe,
+      I18nPluralPipe,
+      HlmCardModule,
+      HlmButtonModule,
+      HlmIconModule
+    ],
+    providers: [provideIcons({lucideFilePlus})]
 })
 export class UserComponent implements OnInit, OnDestroy {
   public user: PersonDto | null = null;

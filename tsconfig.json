@@ -38,6 +38,12 @@
       ],
       "@spartan-ng/ui-spinner-helm": [
         "./projects/spartan-ui/ui-spinner-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-separator-helm": [
+        "./projects/spartan-ui/ui-separator-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-card-helm": [
+        "./projects/spartan-ui/ui-card-helm/src/index.ts"
       ]
     },
     "outDir": "./dist/out-tsc",

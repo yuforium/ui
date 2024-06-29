@@ -56,6 +56,13 @@ a {
   @apply underline;
 }
 
+[hlmcardheader] {
+  @apply p-2 md:p-6;
+}
+[hlmcardcontent] {
+  @apply p-2 md:p-6 pt-0 md:pt-0;
+}
+
 :root {
 --font-sans: ''
 }
