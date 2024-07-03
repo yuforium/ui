@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   apiBasePath: undefined,
-  appName: "yuforium.net"
+  appName: "yuforium.dev"
 };
